@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
+import socialNetworkLogo from './assets/images/rocket-png.png';
 
 export const App = () => {
     return (
         <div className={'appWrapper'}>
             <div style={{backgroundColor: 'green'}} className={'header'}>
-                <img style={{width: '64px', height: '64px'}}/>
+                <img style={{width: '64px', height: '64px'}} src={socialNetworkLogo}/>
                 Samurai Social Network
             </div>
             <div style={{backgroundColor: 'gold'}} className={'nav'}>
