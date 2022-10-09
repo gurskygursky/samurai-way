@@ -1,4 +1,4 @@
-.appWrapper {
+.app-wrapper {
     display: grid;
     grid-template-areas:
 'h h'
@@ -6,7 +6,7 @@
 'f f';
     grid-template-rows: 70px 1fr;
     grid-template-columns: 2fr 10fr;
-    /*gap: 1rem;*/
+    gap: 0.7rem;
 }
 
 .header {
