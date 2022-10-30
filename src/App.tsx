@@ -12,8 +12,8 @@ export const App = () => {
         <div className={'app-wrapper'}>
             <Header/>
             <Navbar/>
-            <Route path={'/profile'} component={Profile}/>
-            <Route  path={'/messages'} component={Messages}/>
+            <Route exact path={'/profile'} component={Profile}/>
+            <Route exact path={'/messages'} component={Messages}/>
             {/*<Profile/>*/}
             {/*<Messages/>*/}
             <Footer/>
