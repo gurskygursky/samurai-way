@@ -5,14 +5,17 @@ import {Navbar} from './components/navbar/Navbar';
 import {Profile} from './components/profile/Profile';
 import {Footer} from './components/footer/Footer';
 import {Messages} from './components/messages/Messages';
+import {Route} from 'react-router-dom';
 
 export const App = () => {
     return (
         <div className={'app-wrapper'}>
             <Header/>
             <Navbar/>
+            <Route path={'/profile'} component={Profile}/>
+            <Route  path={'/messages'} component={Messages}/>
             {/*<Profile/>*/}
-            <Messages/>
+            {/*<Messages/>*/}
             <Footer/>
         </div>
     );
