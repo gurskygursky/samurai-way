@@ -3,17 +3,32 @@ import {NavLink} from 'react-router-dom';
 import { Dialog } from './Dialog';
 import { Messages } from './Messages';
 
+type UserType = {
+    id: number;
+    name: string;
+}
+
 export const Dialogs = () => {
+
+    const ArrayUsers: Array<UserType> = [
+        {id: 1, name: 'Dimych'},
+        {id: 2, name: 'Igor'},
+        {id: 3, name: 'Katya'},
+        {id: 4, name: 'Valera'},
+        {id: 5, name: 'Viktor'},
+    ];
+
     return (
         <div style={{backgroundColor: 'blueviolet', display: 'grid', gridTemplateColumns: '2fr 10fr'}}
              className={'content'}>
             <div>
                 <ul style={{listStyle: 'none'}}>
-                    <Dialog name={'Dymich'}/>
-                    <Dialog name={'Igor'}/>
-                    <Dialog name={'Katya'}/>
-                    <Dialog name={'Valera'}/>
-                    <Dialog name={'Viktor'}/>
+                    {ArrayUsers.map((user: UserType) => <Dialog name={user.name}/> )}
+                    {/*<Dialog name={'Dymich'}/>*/}
+                    {/*<Dialog name={'Igor'}/>*/}
+                    {/*<Dialog name={'Katya'}/>*/}
+                    {/*<Dialog name={'Valera'}/>*/}
+                    {/*<Dialog name={'Viktor'}/>*/}
                     {/*<li>*/}
                     {/*    <NavLink to={'/messages/dimych'}*/}
                     {/*             style={{textDecoration: 'none', cursor: 'pointer', color: 'black'}}>Dimych</NavLink>*/}
