@@ -15,7 +15,7 @@ export const Navbar = () => {
                 </li>
                 <li>
                     {/*<a href={'/messages'}>Messages</a>*/}
-                    <NavLink to={'/messages'} style={{textDecoration: 'none'}}>Messages</NavLink>
+                    <NavLink to={'/dialogs'} style={{textDecoration: 'none'}}>Messages</NavLink>
 
                 </li>
                 <li>

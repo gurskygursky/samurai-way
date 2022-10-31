@@ -4,8 +4,8 @@ import {Header} from './components/header/Header';
 import {Navbar} from './components/navbar/Navbar';
 import {Profile} from './components/profile/Profile';
 import {Footer} from './components/footer/Footer';
-import {Messages} from './components/messages/Messages';
 import {Route} from 'react-router-dom';
+import { Dialogs } from './components/messages/Dialogs';
 
 export const App = () => {
     return (
@@ -13,7 +13,8 @@ export const App = () => {
             <Header/>
             <Navbar/>
             <Route exact path={'/profile'} component={Profile}/>
-            <Route exact path={'/messages'} component={Messages}/>
+            {/*<Route exact path={'/dialogs'} component={Dialogs}/>*/}
+            <Route exact path={'/dialogs'} component={Dialogs}/>
             {/*<Profile/>*/}
             {/*<Messages/>*/}
             <Footer/>
