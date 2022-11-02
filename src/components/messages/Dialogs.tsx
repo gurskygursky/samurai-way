@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-import { Dialog } from './Dialog';
-import { Messages } from './Messages';
+import {Dialog} from './Dialog';
+import {Messages} from './Messages';
 
 type UserType = {
     id: number;
@@ -18,17 +18,24 @@ export const Dialogs = () => {
         {id: 5, name: 'Viktor'},
     ];
 
+    const dialogItems = ArrayUsers.map((user: UserType) => <Dialog name={user.name}/>);
+
     return (
         <div style={{backgroundColor: 'blueviolet', display: 'grid', gridTemplateColumns: '2fr 10fr'}}
              className={'content'}>
             <div>
                 <ul style={{listStyle: 'none'}}>
-                    {ArrayUsers.map((user: UserType) => <Dialog name={user.name}/> )}
+                    {dialogItems}
                     {/*<Dialog name={'Dymich'}/>*/}
                     {/*<Dialog name={'Igor'}/>*/}
                     {/*<Dialog name={'Katya'}/>*/}
                     {/*<Dialog name={'Valera'}/>*/}
                     {/*<Dialog name={'Viktor'}/>*/}
+                    {/*<Dialog name={ArrayUsers[0].name}/>*/}
+                    {/*<Dialog name={ArrayUsers[1].name}/>*/}
+                    {/*<Dialog name={ArrayUsers[2].name}/>*/}
+                    {/*<Dialog name={ArrayUsers[3].name}/>*/}
+                    {/*<Dialog name={ArrayUsers[4].name}/>*/}
                     {/*<li>*/}
                     {/*    <NavLink to={'/messages/dimych'}*/}
                     {/*             style={{textDecoration: 'none', cursor: 'pointer', color: 'black'}}>Dimych</NavLink>*/}

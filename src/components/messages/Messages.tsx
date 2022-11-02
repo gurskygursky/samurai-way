@@ -1,5 +1,5 @@
 import React from 'react';
-import { Message } from './Message';
+import {Message} from './Message';
 
 type MessageType = {
     id: number;
@@ -14,13 +14,18 @@ export const Messages = () => {
         {id: 3, message: 'How are you?'},
     ];
 
+    const messageItems = ArrayMessages.map((message: MessageType) => <Message message={message.message}/>);
+
     return (
         <div>
             <ul style={{listStyle: 'none'}}>
-                {ArrayMessages.map((message: MessageType) => <Message message={message.message}/>)}
+                {messageItems}
                 {/*<Message message={'Hi!'} />*/}
                 {/*<Message message={'Hello, IT-INC!'} />*/}
                 {/*<Message message={'How are you?'} />*/}
+                {/*<Message message={ArrayMessages[0].message} />*/}
+                {/*<Message message={ArrayMessages[1].message} />*/}
+                {/*<Message message={ArrayMessages[2].message} />*/}
                 {/*<li>Hi!</li>*/}
                 {/*<li>How are you?</li>*/}
                 {/*<li>Hello, IT-INC!</li>*/}
