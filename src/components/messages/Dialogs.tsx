@@ -2,23 +2,27 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import {Dialog} from './Dialog';
 import {Messages} from './Messages';
+import {MessageType, UserType} from './../../index';
 
-type UserType = {
-    id: number;
-    name: string;
+// type UserType = {
+//     id: number;
+//     name: string;
+// }
+type DialogsPropsType = {
+    arrayUsers: Array<UserType>;
+    arrayMessages: Array<MessageType>;
 }
+export const Dialogs = (props: DialogsPropsType) => {
 
-export const Dialogs = () => {
+    // const ArrayUsers: Array<UserType> = [
+    //     {id: 1, name: 'Dimych'},
+    //     {id: 2, name: 'Igor'},
+    //     {id: 3, name: 'Katya'},
+    //     {id: 4, name: 'Valera'},
+    //     {id: 5, name: 'Viktor'},
+    // ];
 
-    const ArrayUsers: Array<UserType> = [
-        {id: 1, name: 'Dimych'},
-        {id: 2, name: 'Igor'},
-        {id: 3, name: 'Katya'},
-        {id: 4, name: 'Valera'},
-        {id: 5, name: 'Viktor'},
-    ];
-
-    const dialogItems = ArrayUsers.map((user: UserType) => <Dialog name={user.name}/>);
+    const dialogItems = props.arrayUsers.map((user: UserType) => <Dialog name={user.name}/>);
 
     return (
         <div style={{backgroundColor: 'blueviolet', display: 'grid', gridTemplateColumns: '2fr 10fr'}}
@@ -58,7 +62,7 @@ export const Dialogs = () => {
                     {/*</li>*/}
                 </ul>
             </div>
-            <Messages/>
+            <Messages arrayMessages={props.arrayMessages}/>
         </div>
     )
 }

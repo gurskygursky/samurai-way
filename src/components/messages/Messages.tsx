@@ -1,20 +1,25 @@
 import React from 'react';
 import {Message} from './Message';
+import {MessageType} from './../../index';
 
-type MessageType = {
-    id: number;
-    message: string;
+// type MessageType = {
+//     id: number;
+//     message: string;
+// }
+
+type MessagesPropsType = {
+    arrayMessages: Array<MessageType>;
 }
 
-export const Messages = () => {
+export const Messages = (props: MessagesPropsType) => {
 
-    const ArrayMessages: Array<MessageType> = [
-        {id: 1, message: 'Hi!'},
-        {id: 2, message: 'Hello, IT-INC!'},
-        {id: 3, message: 'How are you?'},
-    ];
+    // const ArrayMessages: Array<MessageType> = [
+    //     {id: 1, message: 'Hi!'},
+    //     {id: 2, message: 'Hello, IT-INC!'},
+    //     {id: 3, message: 'How are you?'},
+    // ];
 
-    const messageItems = ArrayMessages.map((message: MessageType) => <Message message={message.message}/>);
+    const messageItems = props.arrayMessages.map((message: MessageType) => <Message message={message.message}/>);
 
     return (
         <div>
