@@ -2,15 +2,17 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import {Dialog} from './Dialog';
 import {Messages} from './Messages';
-import {MessageType, UserType} from './../../index';
+// import {MessageType, UserType} from './../../index';
+import {DialogsPageType, UserType} from './../../redux/state';
 
 // type UserType = {
 //     id: number;
 //     name: string;
 // }
 type DialogsPropsType = {
-    arrayUsers: Array<UserType>;
-    arrayMessages: Array<MessageType>;
+    // arrayUsers: Array<UserType>;
+    // arrayMessages: Array<MessageType>;
+    dialogs: DialogsPageType;
 }
 export const Dialogs = (props: DialogsPropsType) => {
 
@@ -22,7 +24,8 @@ export const Dialogs = (props: DialogsPropsType) => {
     //     {id: 5, name: 'Viktor'},
     // ];
 
-    const dialogItems = props.arrayUsers.map((user: UserType) => <Dialog name={user.name}/>);
+    // const dialogItems = props.arrayUsers.map((user: UserType) => <Dialog name={user.name}/>);
+    const dialogItems = props.dialogs.arrayUsers.map((user: UserType) => <Dialog name={user.name}/>);
 
     return (
         <div style={{backgroundColor: 'blueviolet', display: 'grid', gridTemplateColumns: '2fr 10fr'}}
@@ -62,7 +65,8 @@ export const Dialogs = (props: DialogsPropsType) => {
                     {/*</li>*/}
                 </ul>
             </div>
-            <Messages arrayMessages={props.arrayMessages}/>
+            {/*<Messages arrayMessages={props.arrayMessages}/>*/}
+            <Messages arrayMessages={props.dialogs.arrayMessages}/>
         </div>
     )
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Message} from './Message';
-import {MessageType} from './../../index';
+import { MessageType } from './../../redux/state';
+// import {MessageType} from './../../index';
 
 // type MessageType = {
 //     id: number;

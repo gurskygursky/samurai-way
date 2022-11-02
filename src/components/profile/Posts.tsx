@@ -1,6 +1,7 @@
 import React from 'react';
-import { PostType } from './../../index';
+// import { PostType } from './../../index';
 import {Post} from './Post';
+import {PostType, ProfilePageType} from './../../redux/state';
 
 // type PostType = {
 //     id: number;
@@ -9,6 +10,7 @@ import {Post} from './Post';
 // }
 
 type PostsPropsType = {
+    // profile: ProfilePageType;
     arrayPosts: Array<PostType>;
 }
 
@@ -21,6 +23,7 @@ export const Posts = (props: PostsPropsType) => {
     //     {id: 4, postText: `YO!`, likesCount: 333},
     // ]
 
+    // const postItems = props.arrayPosts.map((post: PostType) => <Post postText={post.postText} likesCount={post.likesCount}/>);
     const postItems = props.arrayPosts.map((post: PostType) => <Post postText={post.postText} likesCount={post.likesCount}/>);
 
     return (
