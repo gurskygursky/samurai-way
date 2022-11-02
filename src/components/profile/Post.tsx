@@ -9,11 +9,11 @@ type PropsType = {
 export const Post = (props: PropsType) => {
     return (
         <div>
-                <img style={{width: '48px', height: '48px'}}
-                     src={avatarImage}
-                     alt={'avatar logo'}
-                />
-                {props.postText} <b>{props.likesCount}</b>
+            <img style={{width: '48px', height: '48px'}}
+                 src={avatarImage}
+                 alt={'avatar logo'}
+            />
+            {props.postText} <b>{props.likesCount}</b>
         </div>
     );
 };

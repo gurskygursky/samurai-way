@@ -14,4 +14,4 @@ export const Dialog = (props: DialogPropsType) => {
                      style={{textDecoration: 'none', cursor: 'pointer', color: 'black'}}>{props.name}</NavLink>
         </li>
     );
-}
+};
