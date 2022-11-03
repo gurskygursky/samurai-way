@@ -6,7 +6,8 @@ import {Profile} from './components/profile/Profile';
 import {Footer} from './components/footer/Footer';
 import {Route} from 'react-router-dom';
 import {Dialogs} from './components/messages/Dialogs';
-import {RootStateType} from './redux/state';
+// import {RootStateType} from './redux/state';
+import {RootStateType, StoreType} from './redux/store';
 
 type AppPropsType = {
     state: RootStateType;
