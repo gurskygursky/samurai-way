@@ -4,7 +4,7 @@ import './index.css';
 import {App} from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom';
-import {addPost, RootStateType, state, updatePostHandler} from './redux/state';
+import {addPost, RootStateType, state, subscriber, updatePostHandler} from './redux/state';
 
 // ReactDOM.render(
 //     <BrowserRouter>
@@ -21,8 +21,8 @@ export const rerenderEntireThree = (state: RootStateType) => {
         document.getElementById('root')
     );
 }
-
 rerenderEntireThree(state);
+subscriber(rerenderEntireThree);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

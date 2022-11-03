@@ -1,5 +1,3 @@
-import {rerenderEntireThree} from './../index';
-
 export type PostType = {
     id: number;
     postText: string;
@@ -61,4 +59,10 @@ export const updatePostHandler = (newPostText: string) => {
     state.profile.postText = newPostText;
     console.log(state.profile.postText);
     rerenderEntireThree(state);
+}
+let rerenderEntireThree = (state: RootStateType) => {
+
+}
+export const subscriber = (observer: (state: RootStateType) => void ) => {
+    rerenderEntireThree = observer;
 }
