@@ -10,6 +10,10 @@ import {RootStateType} from './redux/state';
 
 type AppPropsType = {
     state: RootStateType;
+    // addPost: (postText: string | undefined) => void;
+    addPost: (postText: string) => void;
+    postText: string;
+    updatePostHandler: (newPostText: string) => void;
 }
 
 export const App: React.FC<AppPropsType> = (props) => {
@@ -17,7 +21,11 @@ export const App: React.FC<AppPropsType> = (props) => {
         <div className={'app-wrapper'}>
             <Header/>
             <Navbar/>
-            <Route exact={true} path={'/profile'} render={() => <Profile profile={props.state.profile}/>}/>
+            <Route exact={true} path={'/profile'} render={() => <Profile profile={props.state.profile}
+                                                                         addPost={props.addPost}
+                                                                         postText={props.postText}
+                                                                         updatePostHandler={props.updatePostHandler}
+            />}/>
             <Route exact={true} path={'/dialogs'} render={() => <Dialogs dialogs={props.state.dialogs}/>}/>
             <Footer/>
         </div>

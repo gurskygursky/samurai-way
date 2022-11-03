@@ -1,3 +1,5 @@
+import {rerenderEntireThree} from './../index';
+
 export type PostType = {
     id: number;
     postText: string;
@@ -13,6 +15,7 @@ export type MessageType = {
 }
 export type ProfilePageType = {
     arrayPosts: Array<PostType>;
+    postText: string;
 }
 export type DialogsPageType = {
     arrayUsers: Array<UserType>;
@@ -31,6 +34,7 @@ export let state: RootStateType = {
             {id: 3, postText: `React - kabzda kak prosto!`, likesCount: 100500},
             {id: 4, postText: `YO!`, likesCount: 333},
         ],
+        postText: 'react - kabzda!',
     },
     dialogs: {
         arrayUsers: [
@@ -47,3 +51,14 @@ export let state: RootStateType = {
         ],
     },
 };
+
+export const addPost = (postText: string) => {
+    state.profile.arrayPosts.push({id: 5, postText: postText, likesCount: 0});
+    console.log(state.profile.arrayPosts);
+    rerenderEntireThree(state);
+}
+export const updatePostHandler = (newPostText: string) => {
+    state.profile.postText = newPostText;
+    console.log(state.profile.postText);
+    rerenderEntireThree(state);
+}

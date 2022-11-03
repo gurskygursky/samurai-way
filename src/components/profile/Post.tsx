@@ -2,6 +2,7 @@ import React from 'react';
 import avatarImage from './../../assets/images/rocket-ship-png.png';
 
 type PropsType = {
+    // postText: string | undefined;
     postText: string;
     likesCount: number;
 }
