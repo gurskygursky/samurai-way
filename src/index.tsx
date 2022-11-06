@@ -29,9 +29,10 @@ export const rerenderEntireThree = (state: RootStateType) => {
     ReactDOM.render(
         <BrowserRouter>
             <App state={state}
-                 updatePostHandler={store.updatePostHandler.bind(store)}
+                 dispatch={store.dispatch.bind(store)}
+                 // updatePostHandler={store.updatePostHandler.bind(store)}
                  postText={store._state.profile.postText}
-                 addPost={store.addPost.bind(store)}
+                 // addPost={store.addPost.bind(store)}
             />
         </BrowserRouter>,
         document.getElementById('root')

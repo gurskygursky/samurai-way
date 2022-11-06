@@ -28,9 +28,20 @@ export type StoreType = {
     _state: RootStateType;
     _callSubscriber: () => void;
     getState: () => RootStateType;
-    addPost: (postText: string) => void;
-    updatePostHandler: (newPostText: string) => void;
+    // addPost: (postText: string) => void;
+    // updatePostHandler: (newPostText: string) => void;
     subscribe: (observer: () => void) => void;
+    dispatch: (action: ActionsType) => void;
+}
+export type ActionsType = AddPostActionType | ChangePostActionType;
+
+type AddPostActionType = {
+    type: 'ADD_POST';
+    postText: string;
+}
+type ChangePostActionType = {
+    type: 'UPDATE_POST';
+    newPostText: string;
 }
 
 export let store: StoreType = {
@@ -64,17 +75,29 @@ export let store: StoreType = {
     getState() {
         return this._state
     },
-    addPost (postText: string) {
-        this._state.profile.arrayPosts.push({id: 5, postText: postText, likesCount: 0});
-        console.log(this._state.profile.arrayPosts);
-        this._callSubscriber();
-    },
-    updatePostHandler (newPostText: string) {
-        this._state.profile.postText = newPostText;
-        console.log(this._state.profile.postText);
-        this._callSubscriber();
-    },
+    // addPost (postText: string) {
+    //     this._state.profile.arrayPosts.push({id: 5, postText: postText, likesCount: 0});
+    //     console.log(this._state.profile.arrayPosts);
+    //     this._callSubscriber();
+    // },
+    // updatePostHandler (newPostText: string) {
+    //     this._state.profile.postText = newPostText;
+    //     console.log(this._state.profile.postText);
+    //     this._callSubscriber();
+    // },
     subscribe (observer) {
         this._callSubscriber = observer;
+    },
+    dispatch (action) {
+        if (action.type === 'ADD_POST') {
+            this._state.profile.arrayPosts.push({id: 5, postText: action.postText, likesCount: 0});
+            console.log(this._state.profile.arrayPosts);
+            this._callSubscriber();
+        }
+        if (action.type === 'UPDATE_POST') {
+            this._state.profile.postText = action.newPostText;
+            console.log(this._state.profile.postText);
+            this._callSubscriber();
+        }
     },
 };

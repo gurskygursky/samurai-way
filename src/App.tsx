@@ -7,14 +7,15 @@ import {Footer} from './components/footer/Footer';
 import {Route} from 'react-router-dom';
 import {Dialogs} from './components/messages/Dialogs';
 // import {RootStateType} from './redux/state';
-import {RootStateType, StoreType} from './redux/store';
+import {ActionsType, RootStateType, StoreType} from './redux/store';
 
 type AppPropsType = {
     state: RootStateType;
     // addPost: (postText: string | undefined) => void;
-    addPost: (postText: string) => void;
+    // addPost: (postText: string) => void;
     postText: string;
-    updatePostHandler: (newPostText: string) => void;
+    // updatePostHandler: (newPostText: string) => void;
+    dispatch: (action: ActionsType) => void;
 }
 
 export const App: React.FC<AppPropsType> = (props) => {
@@ -23,9 +24,10 @@ export const App: React.FC<AppPropsType> = (props) => {
             <Header/>
             <Navbar/>
             <Route exact={true} path={'/profile'} render={() => <Profile profile={props.state.profile}
-                                                                         addPost={props.addPost}
+                                                                         // addPost={props.addPost}
                                                                          postText={props.postText}
-                                                                         updatePostHandler={props.updatePostHandler}
+                                                                         dispatch={props.dispatch}
+                                                                         // updatePostHandler={props.updatePostHandler}
             />}/>
             <Route exact={true} path={'/dialogs'} render={() => <Dialogs dialogs={props.state.dialogs}/>}/>
             <Footer/>

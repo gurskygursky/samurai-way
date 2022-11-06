@@ -1,13 +1,15 @@
 import React, {ChangeEvent, createRef} from 'react';
 import {Post} from './Post';
 import {PostType} from './../../redux/state';
+import {ActionsType} from './../../redux/store';
 
 type PostsPropsType = {
     arrayPosts: Array<PostType>;
     // addPost: (postText: string | undefined) => void;
-    addPost: (postText: string) => void;
+    // addPost: (postText: string) => void;
     postText: string;
-    updatePostHandler: (newPostText: string) => void;
+    // updatePostHandler: (newPostText: string) => void;
+    dispatch: (action: ActionsType) => void;
 }
 
 export const Posts = (props: PostsPropsType) => {
@@ -19,8 +21,10 @@ export const Posts = (props: PostsPropsType) => {
     const textRef = createRef<HTMLTextAreaElement>();
 
     const addPost = () => {
-        props.addPost(props.postText);
-        props.updatePostHandler('');
+        props.dispatch({type: 'ADD_POST', postText: props.postText});
+        props.dispatch({type: 'UPDATE_POST', newPostText: ''});
+        // props.addPost(props.postText);
+        // props.updatePostHandler('');
     }
     // const addPost = () => {
     //     props.addPost(textareaValue);
@@ -28,7 +32,8 @@ export const Posts = (props: PostsPropsType) => {
     // }
 
     const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updatePostHandler(event.currentTarget.value);
+        // props.updatePostHandler(event.currentTarget.value);
+        props.dispatch({type: 'UPDATE_POST', newPostText: event.currentTarget.value});
         // setTextAreaValue(event.currentTarget.value);
         // console.log(event.currentTarget.value);
     }
