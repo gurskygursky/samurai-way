@@ -1,7 +1,6 @@
 import React, {ChangeEvent, createRef} from 'react';
 import {Post} from './Post';
-import {PostType} from './../../redux/state';
-import {ActionsType} from './../../redux/store';
+import {PostType, ActionsType} from './../../redux/store';
 
 type PostsPropsType = {
     arrayPosts: Array<PostType>;

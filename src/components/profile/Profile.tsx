@@ -1,8 +1,7 @@
 import React from 'react';
 import {ProfileDescription} from './ProfileDescription';
 import {Posts} from './Posts';
-import {ProfilePageType} from './../../redux/state';
-import {ActionsType} from './../../redux/store';
+import {ProfilePageType, ActionsType} from './../../redux/store';
 
 export type ProfilePropsType = {
     profile: ProfilePageType;

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Message} from './Message';
-import {MessageType} from './../../redux/state';
+import {MessageType} from './../../redux/store';
 
 type MessagesPropsType = {
     arrayMessages: Array<MessageType>;

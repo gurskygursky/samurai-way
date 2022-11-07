@@ -33,15 +33,29 @@ export type StoreType = {
     subscribe: (observer: () => void) => void;
     dispatch: (action: ActionsType) => void;
 }
-export type ActionsType = AddPostActionType | ChangePostActionType;
+export type ActionsType = AddPostActionType | UpdatePostActionType;
 
-type AddPostActionType = {
-    type: 'ADD_POST';
-    // postText: string;
+// type AddPostActionType = {
+//     type: 'ADD_POST';
+//     // postText: string;
+// }
+type AddPostActionType = ReturnType <typeof AddPostActionCreator>;
+type UpdatePostActionType = ReturnType<typeof UpdatePostActionCreator>;
+// type ChangePostActionType = {
+//     type: 'UPDATE_POST';
+//     newPostText: string;
+// }
+
+const AddPostActionCreator = () => {
+    return {
+        type: 'ADD_POST',
+    } as const
 }
-type ChangePostActionType = {
-    type: 'UPDATE_POST';
-    newPostText: string;
+const UpdatePostActionCreator = (newPostText: string) => {
+    return {
+        type: 'UPDATE_POST',
+        newPostText,
+    } as const
 }
 
 export let store: StoreType = {
