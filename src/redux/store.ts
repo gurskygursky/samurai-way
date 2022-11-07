@@ -30,18 +30,20 @@ export type StoreType = {
     getState: () => RootStateType;
     subscribe: (observer: () => void) => void;
     dispatch: (action: ActionsType) => void;
+    _addPost: () => void;
+    _updatePostHandler: (newPostText: string) => void;
 }
 export type ActionsType = AddPostActionType | UpdatePostActionType;
 
 type AddPostActionType = ReturnType<typeof AddPostActionCreator>;
 type UpdatePostActionType = ReturnType<typeof UpdatePostActionCreator>;
 
-const AddPostActionCreator = () => {
+export const AddPostActionCreator = () => {
     return {
         type: 'ADD_POST',
     } as const
 }
-const UpdatePostActionCreator = (newPostText: string) => {
+export const UpdatePostActionCreator = (newPostText: string) => {
     return {
         type: 'UPDATE_POST',
         newPostText,
@@ -79,29 +81,31 @@ export let store: StoreType = {
     getState() {
         return this._state
     },
-    // addPost (postText: string) {
-    //     this._state.profile.arrayPosts.push({id: 5, postText: postText, likesCount: 0});
-    //     console.log(this._state.profile.arrayPosts);
-    //     this._callSubscriber();
-    // },
-    // updatePostHandler (newPostText: string) {
-    //     this._state.profile.postText = newPostText;
-    //     console.log(this._state.profile.postText);
-    //     this._callSubscriber();
-    // },
+    _addPost () {
+        this._state.profile.arrayPosts.push({id: 5, postText: this._state.profile.postText, likesCount: 0});
+        console.log(this._state.profile.arrayPosts);
+        this._callSubscriber();
+    },
+    _updatePostHandler (newPostText: string) {
+        this._state.profile.postText = newPostText;
+        console.log(this._state.profile.postText);
+        this._callSubscriber();
+    },
     subscribe(observer) {
         this._callSubscriber = observer;
     },
     dispatch(action) {
         if (action.type === 'ADD_POST') {
-            this._state.profile.arrayPosts.push({id: 5, postText: this._state.profile.postText, likesCount: 0});
-            console.log(this._state.profile.arrayPosts);
-            this._callSubscriber();
+            this._addPost();
+            // this._state.profile.arrayPosts.push({id: 5, postText: this._state.profile.postText, likesCount: 0});
+            // console.log(this._state.profile.arrayPosts);
+            // this._callSubscriber();
         }
         if (action.type === 'UPDATE_POST') {
-            this._state.profile.postText = action.newPostText;
-            console.log(this._state.profile.postText);
-            this._callSubscriber();
+            this._updatePostHandler(action.newPostText);
+            // this._state.profile.postText = action.newPostText;
+            // console.log(this._state.profile.postText);
+            // this._callSubscriber();
         }
     },
 };

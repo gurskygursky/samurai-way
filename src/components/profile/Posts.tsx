@@ -1,6 +1,6 @@
 import React, {ChangeEvent, createRef} from 'react';
 import {Post} from './Post';
-import {PostType, ActionsType} from './../../redux/store';
+import {PostType, ActionsType, UpdatePostActionCreator, AddPostActionCreator} from './../../redux/store';
 
 type PostsPropsType = {
     arrayPosts: Array<PostType>;
@@ -16,12 +16,12 @@ export const Posts = (props: PostsPropsType) => {
     const textRef = createRef<HTMLTextAreaElement>();
 
     const addPost = () => {
-        props.dispatch({type: 'ADD_POST'});
-        props.dispatch({type: 'UPDATE_POST', newPostText: ''});
+        props.dispatch(AddPostActionCreator());
+        props.dispatch(UpdatePostActionCreator(''));
     }
 
     const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch({type: 'UPDATE_POST', newPostText: event.currentTarget.value});
+        props.dispatch(UpdatePostActionCreator(event.currentTarget.value));
     }
 
     return (
