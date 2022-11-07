@@ -28,23 +28,13 @@ export type StoreType = {
     _state: RootStateType;
     _callSubscriber: () => void;
     getState: () => RootStateType;
-    // addPost: (postText: string) => void;
-    // updatePostHandler: (newPostText: string) => void;
     subscribe: (observer: () => void) => void;
     dispatch: (action: ActionsType) => void;
 }
 export type ActionsType = AddPostActionType | UpdatePostActionType;
 
-// type AddPostActionType = {
-//     type: 'ADD_POST';
-//     // postText: string;
-// }
-type AddPostActionType = ReturnType <typeof AddPostActionCreator>;
+type AddPostActionType = ReturnType<typeof AddPostActionCreator>;
 type UpdatePostActionType = ReturnType<typeof UpdatePostActionCreator>;
-// type ChangePostActionType = {
-//     type: 'UPDATE_POST';
-//     newPostText: string;
-// }
 
 const AddPostActionCreator = () => {
     return {
@@ -84,7 +74,7 @@ export let store: StoreType = {
             ],
         },
     },
-    _callSubscriber () {
+    _callSubscriber() {
     },
     getState() {
         return this._state
@@ -99,10 +89,10 @@ export let store: StoreType = {
     //     console.log(this._state.profile.postText);
     //     this._callSubscriber();
     // },
-    subscribe (observer) {
+    subscribe(observer) {
         this._callSubscriber = observer;
     },
-    dispatch (action) {
+    dispatch(action) {
         if (action.type === 'ADD_POST') {
             this._state.profile.arrayPosts.push({id: 5, postText: this._state.profile.postText, likesCount: 0});
             console.log(this._state.profile.arrayPosts);

@@ -5,10 +5,7 @@ import {ProfilePageType, ActionsType} from './../../redux/store';
 
 export type ProfilePropsType = {
     profile: ProfilePageType;
-    // addPost: (postText: string | undefined) => void;
-    // addPost: (postText: string) => void;
     postText: string;
-    // updatePostHandler: (newPostText: string) => void;
     dispatch: (action: ActionsType) => void;
 }
 
@@ -18,9 +15,7 @@ export const Profile = (props: ProfilePropsType) => {
             <ProfileDescription/>
             <Posts arrayPosts={props.profile.arrayPosts}
                    dispatch={props.dispatch}
-                   // addPost={props.addPost}
                    postText={props.postText}
-                   // updatePostHandler={props.updatePostHandler}
             />
         </div>
     );
