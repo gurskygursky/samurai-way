@@ -21,7 +21,7 @@ export const Posts = (props: PostsPropsType) => {
     const textRef = createRef<HTMLTextAreaElement>();
 
     const addPost = () => {
-        props.dispatch({type: 'ADD_POST', postText: props.postText});
+        props.dispatch({type: 'ADD_POST'});
         props.dispatch({type: 'UPDATE_POST', newPostText: ''});
         // props.addPost(props.postText);
         // props.updatePostHandler('');

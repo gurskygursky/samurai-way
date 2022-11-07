@@ -37,7 +37,7 @@ export type ActionsType = AddPostActionType | ChangePostActionType;
 
 type AddPostActionType = {
     type: 'ADD_POST';
-    postText: string;
+    // postText: string;
 }
 type ChangePostActionType = {
     type: 'UPDATE_POST';
@@ -90,7 +90,7 @@ export let store: StoreType = {
     },
     dispatch (action) {
         if (action.type === 'ADD_POST') {
-            this._state.profile.arrayPosts.push({id: 5, postText: action.postText, likesCount: 0});
+            this._state.profile.arrayPosts.push({id: 5, postText: this._state.profile.postText, likesCount: 0});
             console.log(this._state.profile.arrayPosts);
             this._callSubscriber();
         }
