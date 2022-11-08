@@ -1,10 +1,12 @@
 import React from 'react';
 import {Dialog} from './Dialog';
 import {Messages} from './Messages';
-import {DialogsPageType, UserType} from './../../redux/store';
+import {ActionsType, DialogsPageType, UserType} from './../../redux/store';
 
 type DialogsPropsType = {
     dialogs: DialogsPageType;
+    messageText: string;
+    dispatch: (action: ActionsType) => void;
 }
 export const Dialogs = (props: DialogsPropsType) => {
 
@@ -18,7 +20,7 @@ export const Dialogs = (props: DialogsPropsType) => {
                     {dialogs}
                 </ul>
             </div>
-            <Messages arrayMessages={props.dialogs.arrayMessages}/>
+            <Messages arrayMessages={props.dialogs.arrayMessages} messageText={props.dialogs.messageText} dispatch={props.dispatch}/>
         </div>
     );
 };

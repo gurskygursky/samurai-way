@@ -18,6 +18,7 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     arrayUsers: Array<UserType>;
     arrayMessages: Array<MessageType>;
+    messageText: string;
 }
 export type RootStateType = {
     profile: ProfilePageType;
@@ -32,11 +33,15 @@ export type StoreType = {
     dispatch: (action: ActionsType) => void;
     _addPost: () => void;
     _updatePostHandler: (newPostText: string) => void;
+    _sendMessage: () => void;
+    _updateMessageText: (newMessageText: string) => void;
 }
-export type ActionsType = AddPostActionType | UpdatePostActionType;
+export type ActionsType = AddPostActionType | UpdatePostActionType | SendMessageActionType | UpdateMessageTextActionType;
 
 type AddPostActionType = ReturnType<typeof AddPostActionCreator>;
 type UpdatePostActionType = ReturnType<typeof UpdatePostActionCreator>;
+type SendMessageActionType = ReturnType<typeof SendMessageActionCreator>;
+type UpdateMessageTextActionType = ReturnType<typeof UpdateMessageTextActionCreator>;
 
 export const AddPostActionCreator = () => {
     return {
@@ -47,6 +52,17 @@ export const UpdatePostActionCreator = (newPostText: string) => {
     return {
         type: 'UPDATE_POST',
         newPostText,
+    } as const
+}
+export const SendMessageActionCreator = () => {
+    return {
+        type: 'SEND_MESSAGE',
+    } as const
+}
+export const UpdateMessageTextActionCreator = (newMessageText: string) => {
+    return {
+        type: 'UPDATE_MESSAGE_TEXT',
+        newMessageText,
     } as const
 }
 
@@ -74,6 +90,7 @@ export let store: StoreType = {
                 {id: 2, message: 'Hello, IT-INC!'},
                 {id: 3, message: 'How are you?'},
             ],
+            messageText: '',
         },
     },
     _callSubscriber() {
@@ -91,6 +108,14 @@ export let store: StoreType = {
         console.log(this._state.profile.postText);
         this._callSubscriber();
     },
+    _sendMessage () {
+        this._state.dialogs.arrayMessages.push({id: 7, message: this._state.dialogs.messageText});
+        this._callSubscriber();
+    },
+    _updateMessageText (newMessageText: string) {
+        this._state.dialogs.messageText = newMessageText;
+        this._callSubscriber();
+    },
     subscribe(observer) {
         this._callSubscriber = observer;
     },
@@ -106,6 +131,12 @@ export let store: StoreType = {
             // this._state.profile.postText = action.newPostText;
             // console.log(this._state.profile.postText);
             // this._callSubscriber();
+        }
+        if (action.type === 'SEND_MESSAGE') {
+            this._sendMessage();
+        }
+        if (action.type === 'UPDATE_MESSAGE_TEXT') {
+            this._updateMessageText(action.newMessageText);
         }
     },
 };

@@ -11,6 +11,7 @@ import {ActionsType, RootStateType} from './redux/store';
 type AppPropsType = {
     state: RootStateType;
     postText: string;
+    messageText: string;
     dispatch: (action: ActionsType) => void;
 }
 
@@ -22,7 +23,9 @@ export const App: React.FC<AppPropsType> = (props) => {
             <Route exact={true} path={'/profile'} render={() => <Profile profile={props.state.profile}
                                                                          postText={props.postText}
                                                                          dispatch={props.dispatch}/>}/>
-            <Route exact={true} path={'/dialogs'} render={() => <Dialogs dialogs={props.state.dialogs}/>}/>
+            <Route exact={true} path={'/dialogs'} render={() => <Dialogs dialogs={props.state.dialogs}
+                                                                         messageText={props.messageText}
+                                                                         dispatch={props.dispatch}/>}/>
             <Footer/>
         </div>
     );

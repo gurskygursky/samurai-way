@@ -12,6 +12,7 @@ export const rerenderEntireThree = (state: RootStateType) => {
             <App state={state}
                  dispatch={store.dispatch.bind(store)}
                  postText={store._state.profile.postText}
+                 messageText={store._state.dialogs.messageText}
             />
         </BrowserRouter>,
         document.getElementById('root')
