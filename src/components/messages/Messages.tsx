@@ -1,6 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent} from 'react';
 import {Message} from './Message';
-import {ActionsType, MessageType, SendMessageActionCreator, UpdateMessageTextActionCreator} from './../../redux/store';
+import {ActionsType, MessageType} from './../../redux/store';
+import {SendMessageActionCreator, UpdateMessageTextActionCreator} from './../../redux/reducers/dialogs-reducer';
 
 type MessagesPropsType = {
     arrayMessages: Array<MessageType>;

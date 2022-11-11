@@ -1,3 +1,5 @@
+import {DialogsActionsType, DialogsReducer} from 'src/redux/reducers/dialogs-reducer';
+
 export type PostType = {
     id: number;
     postText: string;
@@ -36,12 +38,13 @@ export type StoreType = {
     _sendMessage: () => void;
     _updateMessageText: (newMessageText: string) => void;
 }
-export type ActionsType = AddPostActionType | UpdatePostActionType | SendMessageActionType | UpdateMessageTextActionType;
+// export type ActionsType = AddPostActionType | UpdatePostActionType | SendMessageActionType | UpdateMessageTextActionType;
+export type ActionsType = AddPostActionType | UpdatePostActionType | DialogsActionsType;
 
 type AddPostActionType = ReturnType<typeof AddPostActionCreator>;
 type UpdatePostActionType = ReturnType<typeof UpdatePostActionCreator>;
-type SendMessageActionType = ReturnType<typeof SendMessageActionCreator>;
-type UpdateMessageTextActionType = ReturnType<typeof UpdateMessageTextActionCreator>;
+// type SendMessageActionType = ReturnType<typeof SendMessageActionCreator>;
+// type UpdateMessageTextActionType = ReturnType<typeof UpdateMessageTextActionCreator>;
 
 export const AddPostActionCreator = () => {
     return {
@@ -54,17 +57,17 @@ export const UpdatePostActionCreator = (newPostText: string) => {
         newPostText,
     } as const
 }
-export const SendMessageActionCreator = () => {
-    return {
-        type: 'SEND_MESSAGE',
-    } as const
-}
-export const UpdateMessageTextActionCreator = (newMessageText: string) => {
-    return {
-        type: 'UPDATE_MESSAGE_TEXT',
-        newMessageText,
-    } as const
-}
+// export const SendMessageActionCreator = () => {
+//     return {
+//         type: 'SEND_MESSAGE',
+//     } as const
+// }
+// export const UpdateMessageTextActionCreator = (newMessageText: string) => {
+//     return {
+//         type: 'UPDATE_MESSAGE_TEXT',
+//         newMessageText,
+//     } as const
+// }
 
 export let store: StoreType = {
     _state: {
@@ -120,6 +123,8 @@ export let store: StoreType = {
         this._callSubscriber = observer;
     },
     dispatch(action) {
+        this._state = DialogsReducer(this._state, action);
+        this._callSubscriber();
         if (action.type === 'ADD_POST') {
             this._addPost();
             // this._state.profile.arrayPosts.push({id: 5, postText: this._state.profile.postText, likesCount: 0});
@@ -132,11 +137,11 @@ export let store: StoreType = {
             // console.log(this._state.profile.postText);
             // this._callSubscriber();
         }
-        if (action.type === 'SEND_MESSAGE') {
-            this._sendMessage();
-        }
-        if (action.type === 'UPDATE_MESSAGE_TEXT') {
-            this._updateMessageText(action.newMessageText);
-        }
+        // if (action.type === 'SEND_MESSAGE') {
+        //     this._sendMessage();
+        // }
+        // if (action.type === 'UPDATE_MESSAGE_TEXT') {
+        //     this._updateMessageText(action.newMessageText);
+        // }
     },
 };
