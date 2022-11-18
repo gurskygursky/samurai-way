@@ -4,9 +4,12 @@ import {PostType, ActionsType} from './../../redux/store';
 import { AddPostActionCreator, UpdatePostActionCreator} from './../../redux/reducers/profile-reducer';
 
 type PostsPropsType = {
-    arrayPosts: Array<PostType>;
+    addPost: () => void;
+    onChangeHandler: (newPostText: string) => void;
     postText: string;
-    dispatch: (action: ActionsType) => void;
+    arrayPosts: Array<PostType>;
+    // postText: string;
+    // dispatch: (action: ActionsType) => void;
 }
 
 export const Posts = (props: PostsPropsType) => {
@@ -17,12 +20,14 @@ export const Posts = (props: PostsPropsType) => {
     const textRef = createRef<HTMLTextAreaElement>();
 
     const addPost = () => {
-        props.dispatch(AddPostActionCreator());
-        props.dispatch(UpdatePostActionCreator(''));
+        props.addPost();
+        // props.dispatch(AddPostActionCreator());
+        // props.dispatch(UpdatePostActionCreator(''));
     }
 
     const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(UpdatePostActionCreator(event.currentTarget.value));
+        props.onChangeHandler(event.currentTarget.value);
+        // props.dispatch(UpdatePostActionCreator(event.currentTarget.value));
     }
 
     return (
