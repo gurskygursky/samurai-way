@@ -125,8 +125,8 @@ export let store: StoreType = {
         this._callSubscriber = observer;
     },
     dispatch(action) {
-        this._state = DialogsReducer(this._state, action);
-        this._state = ProfileReducer(this._state, action);
+        this._state.dialogs = DialogsReducer(this._state.dialogs, action);
+        this._state.profile = ProfileReducer(this._state.profile, action);
         this._callSubscriber();
 /*        if (action.type === 'ADD_POST') {
             this._addPost();

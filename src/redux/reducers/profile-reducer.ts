@@ -1,19 +1,28 @@
-import {ActionsType, RootStateType} from './../../redux/store';
+import {ActionsType, ProfilePageType} from './../../redux/store';
 
 enum ACTIONS {
     ADD_POST = 'ADD_POST',
     UPDATE_POST_TEXT = 'UPDATE_POST_TEXT',
 }
 
+const initialState: ProfilePageType = {
+        arrayPosts: [
+            {id: 1, postText: `It's my first post`, likesCount: 888},
+            {id: 2, postText: `Hello, IT-INCUBATOR!`, likesCount: 777},
+            {id: 3, postText: `React - kabzda kak prosto!`, likesCount: 100500},
+            {id: 4, postText: `YO!`, likesCount: 333},
+        ],
+        postText: 'react - kabzda!',
+}
 
-export const ProfileReducer = (state: RootStateType, action: ActionsType) => {
+export const ProfileReducer = (state = initialState, action: ActionsType) => {
     switch (action.type) {
         case ACTIONS.ADD_POST: {
-            state.profile.arrayPosts.push({id: 888, postText: state.profile.postText, likesCount: 0});
+            state.arrayPosts.push({id: 888, postText: state.postText, likesCount: 0});
             return state;
         }
         case ACTIONS.UPDATE_POST_TEXT: {
-            state.profile.postText = action.newPostText;
+            state.postText = action.newPostText;
             return state;
         }
         default: return state;

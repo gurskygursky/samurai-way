@@ -1,13 +1,34 @@
-import {ActionsType, RootStateType} from './../../redux/store';
+import {ActionsType, DialogsPageType} from './../../redux/store';
 
-export const DialogsReducer = (state: RootStateType, action: ActionsType) => {
+enum ACTIONS {
+    SEND_MESSAGE = 'SEND_MESSAGE',
+    UPDATE_MESSAGE_TEXT = 'UPDATE_MESSAGE_TEXT',
+}
+
+let initialState: DialogsPageType = {
+    arrayUsers: [
+        {id: 1, name: 'Dimych'},
+        {id: 2, name: 'Igor'},
+        {id: 3, name: 'Katya'},
+        {id: 4, name: 'Valera'},
+        {id: 5, name: 'Viktor'},
+    ],
+    arrayMessages: [
+        {id: 1, message: 'Hi!'},
+        {id: 2, message: 'Hello, IT-INC!'},
+        {id: 3, message: 'How are you?'},
+    ],
+    messageText: '',
+}
+
+export const DialogsReducer = (state = initialState, action: ActionsType) => {
     switch (action.type) {
         case ACTIONS.SEND_MESSAGE: {
-            state.dialogs.arrayMessages.push({id: 7, message: state.dialogs.messageText});
+            state.arrayMessages.push({id: 7, message: state.messageText});
             return state;
         }
         case ACTIONS.UPDATE_MESSAGE_TEXT: {
-            state.dialogs.messageText = action.newMessageText;
+            state.messageText = action.newMessageText;
             return state;
         }
         default:
@@ -16,11 +37,6 @@ export const DialogsReducer = (state: RootStateType, action: ActionsType) => {
 }
 
 // actions
-enum ACTIONS {
-    SEND_MESSAGE = 'SEND_MESSAGE',
-    UPDATE_MESSAGE_TEXT = 'UPDATE_MESSAGE_TEXT',
-}
-
 export const SendMessageActionCreator = () => {
     return {
         type: ACTIONS.SEND_MESSAGE,

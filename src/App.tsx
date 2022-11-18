@@ -22,7 +22,8 @@ export const App: React.FC<AppPropsType> = (props) => {
             <Navbar/>
             <Route exact={true} path={'/profile'} render={() => <Profile profile={props.state.profile}
                                                                          postText={props.postText}
-                                                                         dispatch={props.dispatch}/>}/>
+                                                                         dispatch={props.dispatch}
+            />}/>
             <Route exact={true} path={'/dialogs'} render={() => <Dialogs dialogs={props.state.dialogs}
                                                                          messageText={props.messageText}
                                                                          dispatch={props.dispatch}/>}/>
