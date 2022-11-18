@@ -1,21 +1,22 @@
 import React, {ChangeEvent, createRef} from 'react';
 import {Post} from './Post';
-import {PostType, ActionsType} from './../../redux/store';
-import { AddPostActionCreator, UpdatePostActionCreator} from './../../redux/reducers/profile-reducer';
+import {PostType, ActionsType, ProfilePageType} from './../../redux/store';
+import {AddPostActionCreator, UpdatePostActionCreator} from './../../redux/reducers/profile-reducer';
 
 type PostsPropsType = {
     addPost: () => void;
     onChangeHandler: (newPostText: string) => void;
-    postText: string;
-    arrayPosts: Array<PostType>;
+    profile: ProfilePageType;
+    // postText: string;
+    // arrayPosts: Array<PostType>;
     // postText: string;
     // dispatch: (action: ActionsType) => void;
 }
 
 export const Posts = (props: PostsPropsType) => {
 
-    const posts = props.arrayPosts.map((post: PostType) => <Post postText={post.postText}
-                                                                 likesCount={post.likesCount}/>);
+    const posts = props.profile.arrayPosts.map((post: PostType) => <Post postText={post.postText}
+                                                                         likesCount={post.likesCount}/>);
 
     const textRef = createRef<HTMLTextAreaElement>();
 
@@ -34,7 +35,10 @@ export const Posts = (props: PostsPropsType) => {
         <div>
             My Posts
             <div>
-                <textarea ref={textRef} value={props.postText} onChange={onChangeHandler}/>
+                <textarea ref={textRef}
+                          value={props.profile.postText}
+                          onChange={onChangeHandler}
+                />
                 <button onClick={addPost}>send</button>
             </div>
             {posts}
