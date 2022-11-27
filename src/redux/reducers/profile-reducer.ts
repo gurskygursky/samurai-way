@@ -1,4 +1,4 @@
-import {ActionsType, ProfilePageType} from './../../redux/store';
+import {ActionsType, ProfilePageType} from 'src/redux/my-first-store';
 
 enum ACTIONS {
     ADD_POST = 'ADD_POST',

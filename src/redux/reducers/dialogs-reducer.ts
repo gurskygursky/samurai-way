@@ -1,4 +1,4 @@
-import {ActionsType, DialogsPageType} from './../../redux/store';
+import {ActionsType, DialogsPageType} from 'src/redux/my-first-store';
 
 enum ACTIONS {
     SEND_MESSAGE = 'SEND_MESSAGE',
@@ -18,39 +18,45 @@ let initialState: DialogsPageType = {
         {id: 2, message: 'Hello, IT-INC!'},
         {id: 3, message: 'How are you?'},
     ],
-    messageText: '',
+    // messageText: '',
 }
 
 export const DialogsReducer = (state = initialState, action: ActionsType) => {
     switch (action.type) {
         case ACTIONS.SEND_MESSAGE: {
-            state.arrayMessages.push({id: 7, message: state.messageText});
-            return state;
+            return  {
+                ...state,
+                arrayMessages: [...state.arrayMessages, {id: new Date().getTime(), message: action.messageText }],
+            }
+            // state.arrayMessages.push({id: 7, message: state.messageText});
+            // return state;
         }
-        case ACTIONS.UPDATE_MESSAGE_TEXT: {
-            state.messageText = action.newMessageText;
-            return state;
-        }
+        // case ACTIONS.UPDATE_MESSAGE_TEXT: {
+        //     state.messageText = action.newMessageText;
+        //     return state;
+        // }
         default:
             return state;
     }
 }
 
 // actions
-export const SendMessageActionCreator = () => {
+export const SendMessageActionCreator = (messageText: string) => {
     return {
         type: ACTIONS.SEND_MESSAGE,
+        messageText,
     } as const
 }
-export const UpdateMessageTextActionCreator = (newMessageText: string) => {
-    return {
-        type: ACTIONS.UPDATE_MESSAGE_TEXT,
-        newMessageText,
-    } as const
-}
+// export const UpdateMessageTextActionCreator = (newMessageText: string) => {
+//     return {
+//         type: ACTIONS.UPDATE_MESSAGE_TEXT,
+//         newMessageText,
+//     } as const
+// }
 
 // actions types
 
 type SendMessageActionType = ReturnType<typeof SendMessageActionCreator>;
-type UpdateMessageTextActionType = ReturnType<typeof UpdateMessageTextActionCreator>;
-export type DialogsActionsType = SendMessageActionType | UpdateMessageTextActionType;
+// type UpdateMessageTextActionType = ReturnType<typeof UpdateMessageTextActionCreator>;
+// export type DialogsActionsType = SendMessageActionType | UpdateMessageTextActionType;
+export type DialogsActionsType = SendMessageActionType;
