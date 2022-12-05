@@ -18,3 +18,16 @@ export type DialogsPageType = {
     arrayUsers: Array<UserType>;
     arrayMessages: Array<MessageType>;
 }
+export type UserPageType = {
+    id: number;
+    photos: string;
+    fullName: string;
+    isFollow: boolean;
+    location: {
+        country: string;
+        city: string;
+    }
+}
+export type UsersPageType = {
+    users: Array<UserPageType>;
+}

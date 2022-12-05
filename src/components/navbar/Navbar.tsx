@@ -9,6 +9,9 @@ export const Navbar = () => {
                     <NavLink to={'/profile'} style={{textDecoration: 'none'}}>Profile</NavLink>
                 </li>
                 <li>
+                    <NavLink to={'/users'} style={{textDecoration: 'none'}}>Users</NavLink>
+                </li>
+                <li>
                     <NavLink to={'/news'} style={{textDecoration: 'none'}}>News</NavLink>
                 </li>
                 <li>
