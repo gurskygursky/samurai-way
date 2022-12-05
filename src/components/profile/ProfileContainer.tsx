@@ -1,5 +1,4 @@
-import React from 'react';
-import {ProfilePageType} from 'src/redux/my-first-store';
+import {ProfilePageType} from 'src/redux/types';
 import {connect} from 'react-redux';
 import {RootStoreType} from './../../redux/store';
 import {Profile} from './../../components/profile/Profile';
@@ -7,7 +6,6 @@ import {Profile} from './../../components/profile/Profile';
 type mapStateToPropsType = {
     profile: ProfilePageType;
 }
-
 
 export type ProfileContainerType = mapStateToPropsType;
 

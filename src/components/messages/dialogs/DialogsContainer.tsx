@@ -1,7 +1,7 @@
-import {Dialogs} from './Dialogs';
+import {Dialogs} from 'src/components/messages/dialogs/Dialogs';
 import {connect} from 'react-redux';
-import {UserType} from 'src/redux/my-first-store';
-import {RootStoreType} from './../../redux/store';
+import {RootStoreType} from 'src/redux/store';
+import {UserType} from './../../../redux/types';
 
 
 const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {

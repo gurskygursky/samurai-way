@@ -1,48 +1,43 @@
-import {ActionsType, ProfilePageType} from 'src/redux/my-first-store';
+import {ProfilePageType} from 'src/redux/types';
 
 enum ACTIONS {
     ADD_POST = 'ADD_POST',
-    UPDATE_POST_TEXT = 'UPDATE_POST_TEXT',
 }
 
 const initialState: ProfilePageType = {
-        arrayPosts: [
-            {id: 1, postText: `It's my first post`, likesCount: 888},
-            {id: 2, postText: `Hello, IT-INCUBATOR!`, likesCount: 777},
-            {id: 3, postText: `React - kabzda kak prosto!`, likesCount: 100500},
-            {id: 4, postText: `YO!`, likesCount: 333},
-        ],
-        postText: 'react - kabzda!',
+    arrayPosts: [
+        {id: 1, postText: `It's my first post`, likesCount: 888},
+        {id: 2, postText: `Hello, IT-INCUBATOR!`, likesCount: 777},
+        {id: 3, postText: `React - kabzda kak prosto!`, likesCount: 100500},
+        {id: 4, postText: `YO!`, likesCount: 333},
+    ],
 }
 
-export const ProfileReducer = (state = initialState, action: ActionsType) => {
+export const ProfileReducer = (state = initialState, action: ProfileActionsType) => {
     switch (action.type) {
         case ACTIONS.ADD_POST: {
-            state.arrayPosts.push({id: 888, postText: state.postText, likesCount: 0});
-            return state;
+            return {
+                ...state,
+                arrayPosts: [...state.arrayPosts, {
+                    id: new Date().getTime(),
+                    postText: action.payload.postText,
+                    likesCount: new Date().getDay()
+                }]
+            }
         }
-        case ACTIONS.UPDATE_POST_TEXT: {
-            state.postText = action.newPostText;
+        default:
             return state;
-        }
-        default: return state;
     }
 }
 
 // actions
-export const AddPostActionCreator = () => {
+export const AddPostActionCreator = (postText: string) => {
     return {
         type: ACTIONS.ADD_POST,
-    } as const
-}
-export const UpdatePostActionCreator = (newPostText: string) => {
-    return {
-        type: ACTIONS.UPDATE_POST_TEXT,
-        newPostText,
+        payload: {postText},
     } as const
 }
 
 // actions types
 type AddPostActionType = ReturnType<typeof AddPostActionCreator>;
-type UpdatePostActionType = ReturnType<typeof UpdatePostActionCreator>;
-export type ProfileActionsType = AddPostActionType | UpdatePostActionType;
+export type ProfileActionsType = AddPostActionType;

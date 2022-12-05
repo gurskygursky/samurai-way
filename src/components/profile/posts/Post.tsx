@@ -1,5 +1,5 @@
 import React from 'react';
-import avatarImage from './../../assets/images/rocket-ship-png.png';
+import avatarImage from 'src/assets/images/rocket-ship-png.png';
 
 type PropsType = {
     // postText: string | undefined;

@@ -1,3 +1,5 @@
+export {};
+/*
 import {DialogsActionsType, DialogsReducer} from 'src/redux/reducers/dialogs-reducer';
 import {ProfileActionsType, ProfileReducer} from 'src/redux/reducers/profile-reducer';
 
@@ -16,7 +18,7 @@ export type MessageType = {
 }
 export type ProfilePageType = {
     arrayPosts: Array<PostType>;
-    postText: string;
+    // postText: string;
 }
 export type DialogsPageType = {
     arrayUsers: Array<UserType>;
@@ -80,7 +82,7 @@ export let store: StoreType = {
                 {id: 3, postText: `React - kabzda kak prosto!`, likesCount: 100500},
                 {id: 4, postText: `YO!`, likesCount: 333},
             ],
-            postText: 'react - kabzda!',
+            // postText: 'react - kabzda!',
         },
         dialogs: {
             arrayUsers: [
@@ -128,18 +130,18 @@ export let store: StoreType = {
         this._state.dialogs = DialogsReducer(this._state.dialogs, action);
         this._state.profile = ProfileReducer(this._state.profile, action);
         this._callSubscriber();
-/*        if (action.type === 'ADD_POST') {
+/!*        if (action.type === 'ADD_POST') {
             this._addPost();
             // this._state.profile.arrayPosts.push({id: 5, postText: this._state.profile.postText, likesCount: 0});
             // console.log(this._state.profile.arrayPosts);
             // this._callSubscriber();
-        }*/
-/*        if (action.type === 'UPDATE_POST') {
+        }*!/
+/!*        if (action.type === 'UPDATE_POST') {
             this._updatePostHandler(action.newPostText);
             // this._state.profile.postText = action.newPostText;
             // console.log(this._state.profile.postText);
             // this._callSubscriber();
-        }*/
+        }*!/
         // if (action.type === 'SEND_MESSAGE') {
         //     this._sendMessage();
         // }
@@ -148,3 +150,4 @@ export let store: StoreType = {
         // }
     },
 };
+*/

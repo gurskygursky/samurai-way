@@ -1,8 +1,7 @@
-import {ActionsType, DialogsPageType} from 'src/redux/my-first-store';
+import {DialogsPageType} from 'src/redux/types';
 
 enum ACTIONS {
     SEND_MESSAGE = 'SEND_MESSAGE',
-    UPDATE_MESSAGE_TEXT = 'UPDATE_MESSAGE_TEXT',
 }
 
 let initialState: DialogsPageType = {
@@ -18,23 +17,16 @@ let initialState: DialogsPageType = {
         {id: 2, message: 'Hello, IT-INC!'},
         {id: 3, message: 'How are you?'},
     ],
-    // messageText: '',
 }
 
-export const DialogsReducer = (state = initialState, action: ActionsType) => {
+export const DialogsReducer = (state = initialState, action: DialogsActionsType) => {
     switch (action.type) {
         case ACTIONS.SEND_MESSAGE: {
-            return  {
+            return {
                 ...state,
-                arrayMessages: [...state.arrayMessages, {id: new Date().getTime(), message: action.messageText }],
+                arrayMessages: [...state.arrayMessages, {id: new Date().getTime(), message: action.payload.messageText}],
             }
-            // state.arrayMessages.push({id: 7, message: state.messageText});
-            // return state;
         }
-        // case ACTIONS.UPDATE_MESSAGE_TEXT: {
-        //     state.messageText = action.newMessageText;
-        //     return state;
-        // }
         default:
             return state;
     }
@@ -44,19 +36,10 @@ export const DialogsReducer = (state = initialState, action: ActionsType) => {
 export const SendMessageActionCreator = (messageText: string) => {
     return {
         type: ACTIONS.SEND_MESSAGE,
-        messageText,
+        payload: {messageText},
     } as const
 }
-// export const UpdateMessageTextActionCreator = (newMessageText: string) => {
-//     return {
-//         type: ACTIONS.UPDATE_MESSAGE_TEXT,
-//         newMessageText,
-//     } as const
-// }
 
 // actions types
-
 type SendMessageActionType = ReturnType<typeof SendMessageActionCreator>;
-// type UpdateMessageTextActionType = ReturnType<typeof UpdateMessageTextActionCreator>;
-// export type DialogsActionsType = SendMessageActionType | UpdateMessageTextActionType;
 export type DialogsActionsType = SendMessageActionType;
