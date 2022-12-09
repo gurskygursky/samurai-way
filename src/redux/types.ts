@@ -18,7 +18,7 @@ export type DialogsPageType = {
     arrayUsers: Array<UserType>;
     arrayMessages: Array<MessageType>;
 }
-export type UserPageType = {
+export type UserPayloadType = {
     id: number;
     photos: string;
     fullName: string;
@@ -27,7 +27,4 @@ export type UserPageType = {
         country: string;
         city: string;
     }
-}
-export type UsersPageType = {
-    users: Array<UserPageType>;
 }

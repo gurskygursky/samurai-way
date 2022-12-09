@@ -1,22 +1,23 @@
 import {connect} from 'react-redux';
 import {Users} from './Users';
 import {RootStoreType} from './../../redux/store';
-import {UserPageType} from './../../redux/types';
+import {UserPayloadType} from './../../redux/types';
 import {Dispatch} from 'redux';
-import {FollowUserAC, UnfollowUserAC} from './../../redux/reducers/users-reducer';
+import {FollowUserAC, SetUsersAC, UnfollowUserAC} from './../../redux/reducers/users-reducer';
 
 type mapStateToPropsType = {
-    users: Array<UserPageType>;
+    users: Array<UserPayloadType>;
 }
 
 type mapDispatchToPropsType = {
     follow: (userID: number) => void;
     unfollow: (userID: number) => void;
+    setUsers: (users: Array<UserPayloadType>) => void;
 }
 
 const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
     return {
-        users: state.usersReducer?.users,
+        users: state.usersReducer.users,
     }
 }
 
@@ -28,9 +29,11 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
         unfollow: (userID: number) => {
             dispatch(UnfollowUserAC(userID))
         },
+        setUsers: (users: Array<UserPayloadType>) => {
+            dispatch(SetUsersAC(users))
+        },
     }
 }
-
 
 export type UsersContainerPropsType = mapStateToPropsType & mapDispatchToPropsType;
 

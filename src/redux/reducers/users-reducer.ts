@@ -1,5 +1,4 @@
-import {UsersPageType} from './../../redux/types';
-import avatar_male_user from './../../assets/images/avatar_male_user.png'
+import {UserPayloadType} from './../../redux/types';
 
 enum ACTIONS {
     SET_USERS = 'SET_USERS',
@@ -8,43 +7,14 @@ enum ACTIONS {
 }
 
 
-const initialState: UsersPageType = {
-    users: [
-        {
-            id: 1, photos: avatar_male_user, fullName: 'Dimych', isFollow: false,
-            location: {
-                country: 'Belarus',
-                city: 'Minsk',
-            }
-        },
-        {
-            id: 2, photos: avatar_male_user, fullName: 'Meow', isFollow: false,
-            location: {
-                country: 'Belarus',
-                city: 'Minsk',
-            }
-        },
-        {
-            id: 3, photos: avatar_male_user, fullName: 'MeowMeow', isFollow: false,
-            location: {
-                country: 'Belarus',
-                city: 'Minsk',
-            },
-        },
-        {
-            id: 4, photos: avatar_male_user, fullName: 'Petya', isFollow: false,
-            location: {
-                country: 'Belarus',
-                city: 'Minsk',
-            },
-        }
-    ],
+const initialState = {
+    users: [] as Array<UserPayloadType>,
 }
 
 export const usersReducer = (state = initialState, action: UsersReducerActionsType) => {
     switch (action.type) {
         case ACTIONS.SET_USERS: {
-            return {...state}
+            return {...state, users: [...action.payload.users]}
         }
         case ACTIONS.FOLLOW: {
             return {
@@ -67,7 +37,7 @@ export const usersReducer = (state = initialState, action: UsersReducerActionsTy
 }
 
 // actions
-export const SetUsersAC = (users: UsersPageType) => {
+export const SetUsersAC = (users: Array<UserPayloadType>) => {
     return {
         type: ACTIONS.SET_USERS,
         payload: {users},
