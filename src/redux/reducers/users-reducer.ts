@@ -1,4 +1,5 @@
 import {UserPayloadType} from './../../redux/types';
+import {UserResponseType, UsersResponseType} from './../../API/users-api';
 
 enum ACTIONS {
     SET_USERS = 'SET_USERS',
@@ -7,14 +8,16 @@ enum ACTIONS {
 }
 
 
-const initialState = {
-    users: [] as Array<UserPayloadType>,
-}
+const initialState: UsersResponseType = {
+    users: [],
+    totalCount: 10,
+    error: '',
+};
 
 export const usersReducer = (state = initialState, action: UsersReducerActionsType) => {
     switch (action.type) {
         case ACTIONS.SET_USERS: {
-            return {...state, users: [...action.payload.users]}
+            return {...state, users: [...state.users, ...action.payload.users]}
         }
         case ACTIONS.FOLLOW: {
             return {
@@ -37,7 +40,7 @@ export const usersReducer = (state = initialState, action: UsersReducerActionsTy
 }
 
 // actions
-export const SetUsersAC = (users: Array<UserPayloadType>) => {
+export const SetUsersAC = (users: Array<UserResponseType>) => {
     return {
         type: ACTIONS.SET_USERS,
         payload: {users},

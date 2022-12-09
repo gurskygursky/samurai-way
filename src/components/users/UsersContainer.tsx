@@ -4,20 +4,25 @@ import {RootStoreType} from './../../redux/store';
 import {UserPayloadType} from './../../redux/types';
 import {Dispatch} from 'redux';
 import {FollowUserAC, SetUsersAC, UnfollowUserAC} from './../../redux/reducers/users-reducer';
+import {UserResponseType, UsersResponseType} from './../../API/users-api';
 
 type mapStateToPropsType = {
-    users: Array<UserPayloadType>;
+    users: Array<UserResponseType>;
+    totalCount: number;
+    error: string;
 }
 
 type mapDispatchToPropsType = {
     follow: (userID: number) => void;
     unfollow: (userID: number) => void;
-    setUsers: (users: Array<UserPayloadType>) => void;
+    setUsers: (users: Array<UserResponseType>) => void;
 }
 
 const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
     return {
         users: state.usersReducer.users,
+        totalCount: state.usersReducer.totalCount,
+        error: state.usersReducer.error,
     }
 }
 
@@ -29,7 +34,7 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
         unfollow: (userID: number) => {
             dispatch(UnfollowUserAC(userID))
         },
-        setUsers: (users: Array<UserPayloadType>) => {
+        setUsers: (users: Array<UserResponseType>) => {
             dispatch(SetUsersAC(users))
         },
     }
