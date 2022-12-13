@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import {useState} from 'react';
 
 type PropsType = {
@@ -18,34 +18,48 @@ export const Paginator: React.FC<PropsType> = (props) => {
     }
 
     const [currentPageOutput, setCurrentPageOutput] = useState(1);
+    const [onePage, setOnePage] = useState(props.currentPage);
     const countPagesOutputInLine = 10;
     const countPagesOutput = Math.ceil(props.totalCount / countPagesOutputInLine);
 
     const prevCountPageOutput = (currentPageOutput - 1) * countPagesOutputInLine + 1;
     const nextCountPageOutput = currentPageOutput * countPagesOutputInLine;
 
+    // const selectPage = (pageNumber: number) => {
+    //     props.selectPage(pageNumber);
+    //     console.log(props.currentPage)
+    // }
 
+    const nextPages = () => {
+        if (countPagesOutput > currentPageOutput)
+            setCurrentPageOutput(currentPageOutput + 1);
+    }
+    const prevPages = () => {
+        if (currentPageOutput > 1)
+            setCurrentPageOutput(currentPageOutput - 1);
+    }
 
     const nextPage = () => {
-        if( currentPageOutput > currentPageOutput)
-            setCurrentPageOutput(props.currentPage + 1)
-        console.log(props.currentPage)
-
+        setOnePage(onePage + 1);
     }
     const prevPage = () => {
-        if(currentPageOutput > 1)
-            setCurrentPageOutput(props.currentPage - 1)
-        console.log(props.currentPage)
+        setOnePage(onePage - 1);
     }
 
     return (
         <div>
             <button onClick={prevPage}>Previous</button>
+            <button onClick={prevPages}>{'<<'}</button>
             {/*{pagesCount.map((pageNumber: number, index) => <button key={index}>{pageNumber}</button>)}*/}
             {
                 pagesCount.filter(pageNumber => pageNumber >= prevCountPageOutput && pageNumber <= nextCountPageOutput)
-                .map((pageNumber: number, index) => <button key={index} onClick={() => console.log(pageNumber)}>{pageNumber}</button>)
+                .map((pageNumber: number, index) =>
+                    <button style={onePage === pageNumber ? {color: 'red'} : {color: 'black'}}
+                            key={index} onClick={() => props.selectPage(pageNumber)}>
+                        {pageNumber}
+                    </button>)
             }
+            <button onClick={nextPages}>{'>>'}</button>
             <button onClick={nextPage}>Next</button>
         </div>
     )

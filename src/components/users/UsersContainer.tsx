@@ -1,5 +1,4 @@
 import {connect} from 'react-redux';
-import {Users} from './Users';
 import {RootStoreType} from './../../redux/store';
 import {UserPayloadType} from './../../redux/types';
 import {Dispatch} from 'redux';
@@ -10,7 +9,35 @@ import {
     UnfollowUserAC,
     UsersTotalCountAC
 } from './../../redux/reducers/users-reducer';
-import {UserResponseType, UsersResponseType} from './../../API/users-api';
+import {instance, UserResponseType, UsersResponseType} from './../../API/users-api';
+import React from 'react';
+import avatar_male_user from './assets/images/avatar_male_user.png';
+import { Users } from './Users';
+
+// export class ClassUsersContainer extends React.Component<UsersContainerPropsType, any>{
+//
+//     // componentDidMount() {
+//     //     instance.get(`users`)
+//     //         .then(res => this.props.setUsers(res.data.items));
+//     // }
+//
+//     componentDidMount() {
+//         instance.get(`users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+//             .then(res => {
+//                 this.props.setUsers(res.data.items)
+//                 this.props.usersTotalCount(res.data.totalCount)
+//                 // this.props.selectPage(res.data.currentPage)
+//             })
+//     }
+//
+//     render() {
+//         return (
+//             <div style={{backgroundColor: 'blueviolet'}} className={'content'}>
+//                 <Users {...this.props} />
+//             </div>
+//         );
+//     }
+// }
 
 type mapStateToPropsType = {
     users: Array<UserResponseType>;

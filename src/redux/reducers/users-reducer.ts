@@ -21,7 +21,7 @@ const initialState: InitialStateType = {
     users: [],
     totalCount: 0,
     error: '',
-    currentPage: 1,
+    currentPage: 33,
     pageSize: 10,
 };
 
