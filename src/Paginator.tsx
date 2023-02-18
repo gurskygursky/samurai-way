@@ -38,9 +38,17 @@ export const Paginator: React.FC<PropsType> = (props) => {
 
     const nextPage = () => {
         setOnePage(onePage + 1);
+        props.selectPage(onePage + 1);
     }
     const prevPage = () => {
         setOnePage(onePage - 1);
+        props.selectPage(onePage - 1);
+    }
+
+    const selectPage = (pageNumber: number) => {
+        props.selectPage(pageNumber);
+        setOnePage(pageNumber);
+        console.log(pageNumber)
     }
 
     return (
@@ -51,7 +59,7 @@ export const Paginator: React.FC<PropsType> = (props) => {
                 pagesCount.filter(pageNumber => pageNumber >= prevCountPageOutput && pageNumber <= nextCountPageOutput)
                 .map((pageNumber: number, index) =>
                     <button style={onePage === pageNumber ? {color: 'red'} : {color: 'black'}}
-                            key={index} onClick={() => props.selectPage(pageNumber)}>
+                            key={index} onClick={() => selectPage(pageNumber)}>
                         {pageNumber}
                     </button>)
             }
