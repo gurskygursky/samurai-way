@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 import {RootStoreType} from './../../redux/store';
 import {Dispatch} from 'redux';
 import {
+    IsFetchingAC,
     FollowUserAC,
     SelectPageAC,
     SetUsersAC,
@@ -17,6 +18,7 @@ type mapStateToPropsType = {
     error: string;
     currentPage: number;
     pageSize: number;
+    isFetching: boolean;
 }
 
 type mapDispatchToPropsType = {
@@ -25,6 +27,7 @@ type mapDispatchToPropsType = {
     setUsers: (users: Array<UserResponseType>) => void;
     selectPage: (pageNumber: number) => void;
     usersTotalCount: (totalCount: number) => void;
+    requestIsFetching: (isFetching: boolean) => void;
 }
 
 const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
@@ -34,6 +37,7 @@ const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
         error: state.usersReducer.error,
         currentPage: state.usersReducer.currentPage,
         pageSize: state.usersReducer.pageSize,
+        isFetching: state.usersReducer.isFetching,
     }
 }
 
@@ -53,6 +57,9 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
         },
         selectPage: (pageNumber: number) => {
             dispatch(SelectPageAC(pageNumber))
+        },
+        requestIsFetching: (isFetching: boolean) => {
+            dispatch(IsFetchingAC(isFetching));
         },
     }
 }

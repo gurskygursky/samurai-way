@@ -6,6 +6,7 @@ enum ACTIONS {
     UNFOLLOW = 'UNFOLLOW',
     USERS_TOTAL_COUNT = 'USERS_TOTAL_COUNT',
     SELECT_PAGE = 'SELECT_PAGE',
+    REQUEST_IS_FETCHING = 'REQUEST_IS_FETCHING'
 }
 
 type InitialStateType = {
@@ -14,14 +15,16 @@ type InitialStateType = {
     error: string;
     currentPage: number;
     pageSize: number;
+    isFetching: boolean;
 }
 
 const initialState: InitialStateType = {
     users: [],
     totalCount: 0,
     error: '',
-    currentPage: 33,
+    currentPage: 1,
     pageSize: 10,
+    isFetching: false,
 };
 
 export const usersReducer = (state = initialState, action: UsersReducerActionsType): InitialStateType => {
@@ -52,6 +55,11 @@ export const usersReducer = (state = initialState, action: UsersReducerActionsTy
         case ACTIONS.SELECT_PAGE: {
             return {
                 ...state, currentPage: action.payload.pageNumber
+            }
+        }
+        case ACTIONS.REQUEST_IS_FETCHING: {
+            return {
+                ...state, isFetching: action.payload.isFetching
             }
         }
         default:
@@ -94,6 +102,12 @@ export const SelectPageAC = (pageNumber: number) => {
         payload: {pageNumber},
     } as const
 }
+export const IsFetchingAC = (isFetching: boolean) => {
+    return {
+        type: ACTIONS.REQUEST_IS_FETCHING,
+        payload: {isFetching}
+    } as const
+}
 
 
 // actions types
@@ -102,9 +116,11 @@ type FollowUserActionType = ReturnType<typeof FollowUserAC>;
 type UnfollowUserActionType = ReturnType<typeof UnfollowUserAC>;
 type UsersTotalCountActionType = ReturnType<typeof UsersTotalCountAC>;
 type SelectPageActionType = ReturnType<typeof SelectPageAC>;
+type FetchingActionType = ReturnType<typeof IsFetchingAC>;
 
 export type UsersReducerActionsType = SetUsersActionType
     | FollowUserActionType
     | UnfollowUserActionType
     | UsersTotalCountActionType
-    | SelectPageActionType;
+    | SelectPageActionType
+    | FetchingActionType;
