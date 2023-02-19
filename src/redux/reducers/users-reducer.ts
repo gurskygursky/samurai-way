@@ -68,13 +68,13 @@ export const usersReducer = (state = initialState, action: UsersReducerActionsTy
 }
 
 // actions
-export const SetUsersAC = (users: Array<UserResponseType>) => {
+export const setUsers = (users: Array<UserResponseType>) => {
     return {
         type: ACTIONS.SET_USERS,
         payload: {users},
     } as const
 }
-export const FollowUserAC = (userID: number) => {
+export const followUser = (userID: number) => {
     return {
         type: ACTIONS.FOLLOW,
         payload: {
@@ -82,7 +82,7 @@ export const FollowUserAC = (userID: number) => {
         },
     } as const
 }
-export const UnfollowUserAC = (userID: number) => {
+export const unfollowUser = (userID: number) => {
     return {
         type: ACTIONS.UNFOLLOW,
         payload: {
@@ -90,19 +90,19 @@ export const UnfollowUserAC = (userID: number) => {
         },
     } as const
 }
-export const UsersTotalCountAC = (totalCount: number) => {
+export const usersTotalCount = (totalCount: number) => {
     return {
         type: ACTIONS.USERS_TOTAL_COUNT,
         payload: {totalCount},
     } as const
 }
-export const SelectPageAC = (pageNumber: number) => {
+export const selectPage = (pageNumber: number) => {
     return {
         type: ACTIONS.SELECT_PAGE,
         payload: {pageNumber},
     } as const
 }
-export const IsFetchingAC = (isFetching: boolean) => {
+export const requestIsFetching = (isFetching: boolean) => {
     return {
         type: ACTIONS.REQUEST_IS_FETCHING,
         payload: {isFetching}
@@ -111,12 +111,12 @@ export const IsFetchingAC = (isFetching: boolean) => {
 
 
 // actions types
-type SetUsersActionType = ReturnType<typeof SetUsersAC>;
-type FollowUserActionType = ReturnType<typeof FollowUserAC>;
-type UnfollowUserActionType = ReturnType<typeof UnfollowUserAC>;
-type UsersTotalCountActionType = ReturnType<typeof UsersTotalCountAC>;
-type SelectPageActionType = ReturnType<typeof SelectPageAC>;
-type FetchingActionType = ReturnType<typeof IsFetchingAC>;
+type SetUsersActionType = ReturnType<typeof setUsers>;
+type FollowUserActionType = ReturnType<typeof followUser>;
+type UnfollowUserActionType = ReturnType<typeof unfollowUser>;
+type UsersTotalCountActionType = ReturnType<typeof usersTotalCount>;
+type SelectPageActionType = ReturnType<typeof selectPage>;
+type FetchingActionType = ReturnType<typeof requestIsFetching>;
 
 export type UsersReducerActionsType = SetUsersActionType
     | FollowUserActionType

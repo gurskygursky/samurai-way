@@ -31,7 +31,7 @@ export class UsersContainerWithRequest extends React.Component<UsersContainerPro
         return (
             <>
                 {
-                    this.props.isFetching ? <Preloader/> : <Users {...this.props}/>
+                    this.props.isFetching ? <Preloader/> : <Users unfollow={this.props.unfollowUser} follow={this.props.unfollowUser} {...this.props} />
                 }
             </>
         )

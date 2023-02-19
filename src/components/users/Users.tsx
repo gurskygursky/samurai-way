@@ -2,17 +2,22 @@ import React from 'react';
 import avatar_male_user from "./../../assets/images/avatar_male_user.png";
 import {Paginator} from './../../Paginator';
 import {UserResponseType} from "./../../API/users-api";
+import {UsersContainerPropsType} from "./../../components/users/UsersContainer";
 
-
-type PropsType = {
-    users: UserResponseType[];
+interface PropsType extends UsersContainerPropsType {
     follow: (userId: number) => void;
     unfollow: (userId: number) => void;
-    totalCount: number;
-    currentPage: number;
-    pageSize: number;
-    selectPage: (pageNumber: number) => void;
 }
+
+// type PropsType = {
+//     users: UserResponseType[];
+//     follow: (userId: number) => void;
+//     unfollow: (userId: number) => void;
+//     totalCount: number;
+//     currentPage: number;
+//     pageSize: number;
+//     selectPage: (pageNumber: number) => void;
+// }
 
 export const Users: React.FC<PropsType> = ({users, follow, unfollow, ...props}: PropsType) => {
     return (
