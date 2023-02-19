@@ -1,7 +1,8 @@
-import {ProfilePageType} from 'src/redux/types';
+import {ProfilePageType, ProfileResponseType} from 'src/redux/types';
 
 enum ACTIONS {
     ADD_POST = 'ADD_POST',
+    SET_USER_PROFILE = 'SET_USER_PROFILE',
 }
 
 const initialState: ProfilePageType = {
@@ -11,6 +12,7 @@ const initialState: ProfilePageType = {
         {id: 3, postText: `React - kabzda kak prosto!`, likesCount: 100500},
         {id: 4, postText: `YO!`, likesCount: 333},
     ],
+    profile: {} as ProfileResponseType,
 }
 
 export const ProfileReducer = (state = initialState, action: ProfileActionsType) => {
@@ -25,6 +27,11 @@ export const ProfileReducer = (state = initialState, action: ProfileActionsType)
                 }]
             }
         }
+        case ACTIONS.SET_USER_PROFILE: {
+            return {
+                ...state, profile: action.payload.profile
+            }
+        }
         default:
             return state;
     }
@@ -37,7 +44,14 @@ export const AddPostActionCreator = (postText: string) => {
         payload: {postText},
     } as const
 }
+export const setUserProfile = (profile: ProfileResponseType ) => {
+    return {
+        type: ACTIONS.SET_USER_PROFILE,
+        payload: {profile},
+    } as const
+}
 
 // actions types
 type AddPostActionType = ReturnType<typeof AddPostActionCreator>;
-export type ProfileActionsType = AddPostActionType;
+type SetUserProfileActionType = ReturnType<typeof setUserProfile>;
+export type ProfileActionsType = AddPostActionType | SetUserProfileActionType;

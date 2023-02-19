@@ -1,8 +1,9 @@
 import React from 'react';
 import avatar_male_user from "./../../assets/images/avatar_male_user.png";
-import {Paginator} from './../../Paginator';
+import {Paginator} from '../common/pagination/Paginator';
 import {UserResponseType} from "./../../API/users-api";
 import {UsersContainerPropsType} from "./../../components/users/UsersContainer";
+import {NavLink} from "react-router-dom";
 
 interface PropsType extends UsersContainerPropsType {
     follow: (userId: number) => void;

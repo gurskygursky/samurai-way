@@ -13,6 +13,7 @@ export type MessageType = {
 }
 export type ProfilePageType = {
     arrayPosts: Array<PostType>;
+    profile: ProfileResponseType;
 }
 export type DialogsPageType = {
     arrayUsers: Array<UserType>;
@@ -28,3 +29,30 @@ export type UserPayloadType = {
         city: string;
     }
 }
+
+export type PhotosResponseType = {
+    small: string;
+    large: string;
+}
+export type ContactsResponseType = {
+    facebook: string | null;
+    website: string | null;
+    vk: string | null;
+    twitter: string | null;
+    instagram: string | null;
+    youtube: string | null;
+    github: string | null;
+    mainLink: string | null;
+}
+
+
+export type ProfileResponseType= {
+    aboutMe: string | null;
+    contacts: ContactsResponseType;
+    lookingForAJob: boolean;
+    lookingForAJobDescription: string;
+    fullName: string;
+    userId: number;
+    photos: PhotosResponseType;
+}
+

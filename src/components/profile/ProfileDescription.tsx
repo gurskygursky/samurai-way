@@ -1,14 +1,33 @@
 import React from 'react';
 import avatarImage from './../../assets/images/rocket-ship-png.png';
+import {ProfileResponseType} from "./../../redux/types";
 
-export const ProfileDescription = () => {
+type PropsType = {
+    profile: ProfileResponseType;
+}
+export const ProfileDescription: React.FC<PropsType> = ({profile}) => {
     return (
-        <div>
-            <img style={{width: '64px', height: '64px'}}
-                 src={avatarImage}
-                 alt={'avatar logo'}
-            />
-            <span>Nickname:</span>
+        <div> {
+            profile.photos
+                ? <img style={{width: '64px', height: '64px'}}
+                       src={profile.photos.large}
+                       alt={'avatar logo'}
+                />
+                : <img style={{width: '64px', height: '64px'}}
+                       src={avatarImage}
+                       alt={'avatar logo'}
+                />
+        }
+            {/*<img style={{width: '64px', height: '64px'}}*/}
+            {/*     src={avatarImage}*/}
+            {/*     alt={'avatar logo'}*/}
+            {/*/>*/}
+            {/*<span>Nickname:</span>*/}
+            {
+                profile.userId
+                    ? <span>Nickname: {profile.userId}</span>
+                    : <span>Nickname:</span>
+            }
         </div>
     );
 };

@@ -1,11 +1,15 @@
 import React from 'react';
 import {ProfileDescription} from './ProfileDescription';
 import {PostsContainer} from 'src/components/profile/posts/PostsContainter';
+import {ProfileResponseType} from "./../../redux/types";
 
-export const Profile = () => {
+type PropsType = {
+    profile: ProfileResponseType;
+}
+export const Profile: React.FC<PropsType> = ({profile}) => {
     return (
         <div style={{backgroundColor: 'blueviolet'}} className={'content'}>
-            <ProfileDescription/>
+            <ProfileDescription profile={profile}/>
             <PostsContainer/>
         </div>
     );
