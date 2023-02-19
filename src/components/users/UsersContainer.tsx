@@ -9,7 +9,7 @@ import {
     UsersTotalCountAC
 } from './../../redux/reducers/users-reducer';
 import {UserResponseType} from './../../API/users-api';
-import { Users } from './Users';
+import {UsersContainerWithRequest} from './UsersContainerWithRequest';
 
 type mapStateToPropsType = {
     users: Array<UserResponseType>;
@@ -59,4 +59,4 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
 
 export type UsersContainerPropsType = mapStateToPropsType & mapDispatchToPropsType;
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersContainerWithRequest);
