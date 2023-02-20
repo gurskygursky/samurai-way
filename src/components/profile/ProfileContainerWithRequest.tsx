@@ -5,10 +5,15 @@ import {ProfileContainerPropsType} from "./ProfileContainer";
 import {Preloader} from "./../../components/preloader/Preloader";
 
 export class ProfileContainerWithRequest extends React.Component<ProfileContainerPropsType, any> {
-
     componentDidMount() {
         this.props.requestIsFetching(true);
-        instance.get(`profile/18933`)
+
+        let userId = this.props.match.params.userId;
+        if (!userId){
+            userId = String(18933);
+        }
+
+        instance.get(`profile/` + userId)
             .then(res => {
                 this.props.setUserProfile(res.data);
                 this.props.requestIsFetching(false);

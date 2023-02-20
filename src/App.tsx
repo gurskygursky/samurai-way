@@ -13,7 +13,7 @@ export const App: React.FC = () => {
         <div className={'app-wrapper'}>
             <Header/>
             <Navbar/>
-            <Route exact={true} path={'/profile'} render={() => <ProfileContainer/>}/>
+            <Route exact={true} path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
             <Route exact={true} path={'/dialogs'} render={() => <DialogsContainer/>}/>
             <Route exact={true} path={'/users'} render={() => <UsersContainer/>}/>
             <Footer/>

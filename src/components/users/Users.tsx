@@ -26,9 +26,14 @@ export const Users: React.FC<PropsType> = ({users, follow, unfollow, ...props}: 
             {users.map((user) => {
                 return (
                     <div key={user.id}>
-                        <img style={{width: '64px', height: '64px'}}
-                             src={user.photos.small !== null ? user.photos.small : avatar_male_user}
-                             alt={'user_image_avatar'}/>
+                        <NavLink to={'/profile/' + user.id}>
+                            <img style={{width: '64px', height: '64px'}}
+                                 src={user.photos.small !== null ? user.photos.small : avatar_male_user}
+                                 alt={'user_image_avatar'}/>
+                        </NavLink>
+                        {/*<img style={{width: '64px', height: '64px'}}*/}
+                        {/*     src={user.photos.small !== null ? user.photos.small : avatar_male_user}*/}
+                        {/*     alt={'user_image_avatar'}/>*/}
                         <div style={{color: 'black'}}>{user.name}</div>
                         <div>{user.status}</div>
                         {user.followed
