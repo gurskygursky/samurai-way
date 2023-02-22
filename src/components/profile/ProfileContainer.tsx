@@ -1,14 +1,11 @@
-import {ProfilePageType, ProfileResponseType} from 'src/redux/types';
+import {ProfileResponseType} from 'src/redux/types';
 import {connect, ConnectedProps} from 'react-redux';
 import {RootStoreType} from './../../redux/store';
-import {Profile} from './../../components/profile/Profile';
-
 import {setUserProfile} from "./../../redux/reducers/profile-reducer";
 import {ProfileContainerWithRequest} from "./ProfileContainerWithRequest";
 import {requestIsFetching} from "./../../redux/reducers/users-reducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
-import { compose } from 'redux';
-import React, { ComponentType } from 'react';
+import React from 'react';
 
 type mapStateToPropsType = {
     profile: ProfileResponseType;
@@ -30,11 +27,14 @@ const ConnectComponent = connect(mapStateToProps, {
 export type PathParamType = {
     userId: string;
 }
-export type ProfileContainerPropsType = ConnectedProps<typeof ConnectComponent> & RouteComponentProps<PathParamType>;
-// export const ProfileContainer = ConnectComponent(ProfileContainerWithRequest);
 
-export const ProfileContainer = compose<ComponentType>(
-    ConnectComponent,
-    // withAuthRedirect,
-    withRouter,
-)(ProfileContainerWithRequest);
+const WithRouterUrlDataProfileContainer = withRouter(ProfileContainerWithRequest);
+// export type ProfileContainerPropsType = ConnectedProps<typeof ConnectComponent> & RouteComponentProps<PathParamType>;
+export type ProfileContainerPropsType = ConnectedProps<typeof ConnectComponent> & RouteComponentProps<PathParamType>;
+export const ProfileContainer = ConnectComponent(WithRouterUrlDataProfileContainer);
+
+// export const ProfileContainer = compose<ComponentType>(
+//     ConnectComponent,
+//     // withAuthRedirect,
+//     withRouter,
+// )(ProfileContainerWithRequest);
