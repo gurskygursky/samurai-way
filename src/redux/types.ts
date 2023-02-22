@@ -56,3 +56,15 @@ export type ProfileResponseType= {
     photos: PhotosResponseType;
 }
 
+export type AuthUserDataResponseType = {
+    id: number | null;
+    login: string | null;
+    email: string | null;
+}
+export type AuthDataResponseType = {
+    data: AuthUserDataResponseType;
+    messages: Array<string>;
+    fieldsErrors: Array<string>;
+    resultCode: number;
+
+}
