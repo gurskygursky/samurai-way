@@ -1,6 +1,5 @@
 import {connect, ConnectedProps} from 'react-redux';
 import {RootStoreType} from './../../redux/store';
-import {Dispatch} from 'redux';
 import {
     requestIsFetching,
     followUser,
@@ -9,8 +8,11 @@ import {
     unfollowUser,
     usersTotalCount
 } from './../../redux/reducers/users-reducer';
-import {UserResponseType} from '../../API/api';
-import {UsersContainerWithRequest} from './UsersContainerWithRequest';
+import {UsersAPI} from '../../API/api';
+import React from "react";
+import {Preloader} from "./../preloader/Preloader";
+import {Users} from "./../users/Users";
+import {UserResponseType} from "./../../redux/types";
 
 type mapStateToPropsType = {
     users: Array<UserResponseType>;
@@ -20,15 +22,6 @@ type mapStateToPropsType = {
     pageSize: number;
     isFetching: boolean;
 }
-
-// type mapDispatchToPropsType = {
-//     follow: (userID: number) => void;
-//     unfollow: (userID: number) => void;
-//     setUsers: (users: Array<UserResponseType>) => void;
-//     selectPage: (pageNumber: number) => void;
-//     usersTotalCount: (totalCount: number) => void;
-//     requestIsFetching: (isFetching: boolean) => void;
-// }
 
 const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
     return {
@@ -41,42 +34,67 @@ const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
     }
 }
 
-// const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
-//     return {
-//         follow: (userID: number) => {
-//             dispatch(FollowUserAC(userID))
-//         },
-//         unfollow: (userID: number) => {
-//             dispatch(UnfollowUserAC(userID))
-//         },
-//         setUsers: (users: Array<UserResponseType>) => {
-//             dispatch(SetUsersAC(users))
-//         },
-//         usersTotalCount: (totalCount: number) => {
-//             dispatch(UsersTotalCountAC(totalCount))
-//         },
-//         selectPage: (pageNumber: number) => {
-//             dispatch(SelectPageAC(pageNumber))
-//         },
-//         requestIsFetching: (isFetching: boolean) => {
-//             dispatch(IsFetchingAC(isFetching));
-//         },
-//     }
-// }
-// export type UsersContainerPropsType = mapStateToPropsType & mapDispatchToPropsType;
+export class UsersContainerWithRequest extends React.Component<UsersContainerPropsType, any> {
 
-// export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersContainerWithRequest);
+    componentDidMount() {
+        this.props.requestIsFetching(true);
+        UsersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+            .then(data => {
+                this.props.setUsers(data.items);
+                this.props.usersTotalCount(data.totalCount);
+                this.props.selectPage(this.props.currentPage);
+                this.props.requestIsFetching(false);
+            })
+    }
 
-// export const UsersContainer = connect(mapStateToProps, {
-//     followUser,
-//     unfollowUser,
-//     setUsers,
-//     usersTotalCount,
-//     selectPage,
-//     requestIsFetching
-// })(UsersContainerWithRequest);
+    selectedPageNumber = (pageNumber: number) => {
+        this.props.requestIsFetching(true);
+        this.props.selectPage(pageNumber);
+        UsersAPI.getUsers(pageNumber, this.props.pageSize)
+            .then(data => {
+                this.props.setUsers(data.items);
+                this.props.requestIsFetching(false);
+            })
+    }
+    follow = (userId: number) => {
+        this.props.requestIsFetching(true);
+        UsersAPI.followUser(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    this.props.followUser(userId);
+                    this.props.requestIsFetching(false);
+                }
+            })
+    }
+    unfollow = (userId: number) => {
+        this.props.requestIsFetching(true);
+        UsersAPI.unfollowUser(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
 
+                    this.props.unfollowUser(userId);
+                    this.props.requestIsFetching(false);
+                }
+            })
+    }
 
+    render() {
+        return (
+            <>
+                {
+                    this.props.isFetching
+                        ? <Preloader/>
+                        : <Users
+                            follow={this.follow}
+                            unfollow={this.unfollow}
+                            selectedPageNumber={this.selectedPageNumber}
+                            {...this.props}
+                        />
+                }
+            </>
+        );
+    }
+}
 
 const ConnectComponent = connect(mapStateToProps, {
     followUser,
@@ -85,6 +103,6 @@ const ConnectComponent = connect(mapStateToProps, {
     usersTotalCount,
     selectPage,
     requestIsFetching
-})
-export type UsersContainerPropsType = ConnectedProps<typeof ConnectComponent>
-export const UsersContainer = ConnectComponent(UsersContainerWithRequest)
+});
+export type UsersContainerPropsType = ConnectedProps<typeof ConnectComponent>;
+export const UsersContainer = ConnectComponent(UsersContainerWithRequest);

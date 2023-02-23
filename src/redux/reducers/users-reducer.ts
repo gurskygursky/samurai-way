@@ -1,4 +1,4 @@
-import {UserResponseType} from '../../API/api';
+import {UserResponseType} from "./../../redux/types";
 
 enum ACTIONS {
     SET_USERS = 'SET_USERS',

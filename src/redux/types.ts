@@ -77,6 +77,7 @@ export type UserResponseType = {
     status: string | null;
     uniqueUrlName: string | null;
 }
+
 export type GetUsersResponseType = {
     error: string | null;
     totalCount: number | null;
