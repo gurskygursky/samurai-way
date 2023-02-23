@@ -5,7 +5,7 @@ type PropsType = {
     totalCount: number;
     currentPage: number;
     pageSize: number;
-    selectPage: (pageNumber: number) => void;
+    selectedPageNumber: (pageNumber: number) => void;
 }
 
 export const Paginator: React.FC<PropsType> = (props) => {
@@ -38,15 +38,15 @@ export const Paginator: React.FC<PropsType> = (props) => {
 
     const nextPage = () => {
         setOnePage(onePage + 1);
-        props.selectPage(onePage + 1);
+        props.selectedPageNumber(onePage + 1);
     }
     const prevPage = () => {
         setOnePage(onePage - 1);
-        props.selectPage(onePage - 1);
+        props.selectedPageNumber(onePage - 1);
     }
 
     const selectPage = (pageNumber: number) => {
-        props.selectPage(pageNumber);
+        props.selectedPageNumber(pageNumber);
         setOnePage(pageNumber);
         console.log(pageNumber)
     }

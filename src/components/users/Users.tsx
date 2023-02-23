@@ -1,13 +1,13 @@
 import React from 'react';
 import avatar_male_user from "./../../assets/images/avatar_male_user.png";
 import {Paginator} from '../common/pagination/Paginator';
-import {UserResponseType} from "./../../API/users-api";
-import {UsersContainerPropsType} from "./../../components/users/UsersContainer";
+import {UsersContainerPropsType} from "./../users/UsersContainer";
 import {NavLink} from "react-router-dom";
 
 interface PropsType extends UsersContainerPropsType {
     follow: (userId: number) => void;
     unfollow: (userId: number) => void;
+    selectedPageNumber: (pageNumber: number) => void;
 }
 
 // type PropsType = {
@@ -20,7 +20,7 @@ interface PropsType extends UsersContainerPropsType {
 //     selectPage: (pageNumber: number) => void;
 // }
 
-export const Users: React.FC<PropsType> = ({users, follow, unfollow, ...props}: PropsType) => {
+export const Users: React.FC<PropsType> = ({users, follow, unfollow, selectedPageNumber,  ...props}: PropsType) => {
     return (
         <div style={{backgroundColor: 'blueviolet'}} className={'content'}>
             {users.map((user) => {
@@ -44,7 +44,7 @@ export const Users: React.FC<PropsType> = ({users, follow, unfollow, ...props}: 
                 )
             })}
             <Paginator pageSize={props.pageSize}
-                       selectPage={props.selectPage}
+                       selectedPageNumber={selectedPageNumber}
                        currentPage={props.currentPage}
                        totalCount={props.totalCount}
             />

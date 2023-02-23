@@ -31,6 +31,7 @@ const initialState: InitialStateType = {
 export const usersReducer = (state = initialState, action: UsersReducerActionsType): InitialStateType => {
     switch (action.type) {
         case ACTIONS.SET_USERS: {
+            console.log(state.currentPage);
             return {...state, users: [...action.payload.users]}
         }
         case ACTIONS.FOLLOW: {

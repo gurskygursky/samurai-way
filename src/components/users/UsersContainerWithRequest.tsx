@@ -2,7 +2,7 @@ import React from 'react';
 import {UsersContainerPropsType} from './UsersContainer';
 import {instance} from './../../API/users-api';
 import {Users} from "./Users";
-import {Preloader} from './../../components/preloader/Preloader';
+import {Preloader} from './../preloader/Preloader';
 
 export class UsersContainerWithRequest extends React.Component<UsersContainerPropsType, any> {
 
@@ -12,11 +12,12 @@ export class UsersContainerWithRequest extends React.Component<UsersContainerPro
             .then(res => {
                 this.props.setUsers(res.data.items)
                 this.props.usersTotalCount(res.data.totalCount)
-                this.props.selectPage(res.data.currentPage)
+                this.props.selectPage(this.props.currentPage)
                 this.props.requestIsFetching(false)
             })
     }
-    selectPage = (pageNumber: number) => {
+
+    selectedPageNumber = (pageNumber: number) => {
         this.props.requestIsFetching(true);
         this.props.selectPage(pageNumber);
         instance.get(`users?page=${pageNumber}&count=${this.props.pageSize}`)
@@ -51,10 +52,16 @@ export class UsersContainerWithRequest extends React.Component<UsersContainerPro
         return (
             <>
                 {
-                    this.props.isFetching ? <Preloader/> : <Users follow={this.follow} unfollow={this.unfollow} {...this.props} />
+                    this.props.isFetching
+                        ? <Preloader/>
+                        : <Users
+                            follow={this.follow}
+                            unfollow={this.unfollow}
+                            selectedPageNumber={this.selectedPageNumber}
+                            {...this.props}
+                        />
                 }
             </>
-        )
+        );
     }
-
 }
