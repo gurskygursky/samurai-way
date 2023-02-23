@@ -16,7 +16,6 @@ export class UsersContainerWithRequest extends React.Component<UsersContainerPro
                 this.props.requestIsFetching(false)
             })
     }
-
     selectPage = (pageNumber: number) => {
         this.props.requestIsFetching(true);
         this.props.selectPage(pageNumber);
@@ -26,12 +25,33 @@ export class UsersContainerWithRequest extends React.Component<UsersContainerPro
                 this.props.requestIsFetching(false);
             })
     }
+    follow = (userId: number) => {
+        this.props.requestIsFetching(true);
+        instance.post(`follow/${userId}`)
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    this.props.followUser(userId);
+                    this.props.requestIsFetching(false);
+                }
+            })
+    }
+    unfollow = (userId: number) => {
+        this.props.requestIsFetching(true);
+        instance.delete(`follow/${userId}`)
+            .then(res => {
+                if (res.data.resultCode === 0) {
+
+                    this.props.unfollowUser(userId);
+                    this.props.requestIsFetching(false);
+                }
+            })
+    }
 
     render() {
         return (
             <>
                 {
-                    this.props.isFetching ? <Preloader/> : <Users unfollow={this.props.unfollowUser} follow={this.props.unfollowUser} {...this.props} />
+                    this.props.isFetching ? <Preloader/> : <Users follow={this.follow} unfollow={this.unfollow} {...this.props} />
                 }
             </>
         )

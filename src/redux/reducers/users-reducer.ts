@@ -1,4 +1,5 @@
 import {UserResponseType} from './../../API/users-api';
+import {logDOM} from "@testing-library/react";
 
 enum ACTIONS {
     SET_USERS = 'SET_USERS',
@@ -33,17 +34,18 @@ export const usersReducer = (state = initialState, action: UsersReducerActionsTy
             return {...state, users: [...action.payload.users]}
         }
         case ACTIONS.FOLLOW: {
+            console.log(action.payload)
             return {
                 ...state,
-                users: state.users.map(user => user.id === action.payload.userID
-                    ? {...user, isFollow: true}
+                users: state.users.map(user => user.id === action.payload.userId
+                    ? {...user, followed: true}
                     : user)
             }
         }
         case ACTIONS.UNFOLLOW: {
             return {
-                ...state, users: state.users.map(user => user.id === action.payload.userID
-                    ? {...user, isFollow: false}
+                ...state, users: state.users.map(user => user.id === action.payload.userId
+                    ? {...user, followed: false}
                     : user)
             }
         }
@@ -74,19 +76,19 @@ export const setUsers = (users: Array<UserResponseType>) => {
         payload: {users},
     } as const
 }
-export const followUser = (userID: number) => {
+export const followUser = (userId: number) => {
     return {
         type: ACTIONS.FOLLOW,
         payload: {
-            userID,
+            userId,
         },
     } as const
 }
-export const unfollowUser = (userID: number) => {
+export const unfollowUser = (userId: number) => {
     return {
         type: ACTIONS.UNFOLLOW,
         payload: {
-            userID,
+            userId,
         },
     } as const
 }
