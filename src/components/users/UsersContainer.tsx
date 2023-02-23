@@ -6,7 +6,7 @@ import {
     selectPage,
     setUsers,
     unfollowUser,
-    usersTotalCount
+    usersTotalCount, requestToFollow
 } from './../../redux/reducers/users-reducer';
 import {UsersAPI} from '../../API/api';
 import React from "react";
@@ -21,6 +21,7 @@ type mapStateToPropsType = {
     currentPage: number;
     pageSize: number;
     isFetching: boolean;
+    isFollowing: Array<number>;
 }
 
 const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
@@ -31,6 +32,7 @@ const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
         currentPage: state.usersReducer.currentPage,
         pageSize: state.usersReducer.pageSize,
         isFetching: state.usersReducer.isFetching,
+        isFollowing: state.usersReducer.isFollowing,
     }
 }
 
@@ -62,8 +64,11 @@ export class UsersContainerWithRequest extends React.Component<UsersContainerPro
             .then(data => {
                 if (data.resultCode === 0) {
                     this.props.followUser(userId);
+                    this.props.requestToFollow(userId, true);
                     this.props.requestIsFetching(false);
                 }
+                this.props.requestToFollow(userId, false);
+
             })
     }
     unfollow = (userId: number) => {
@@ -71,10 +76,11 @@ export class UsersContainerWithRequest extends React.Component<UsersContainerPro
         UsersAPI.unfollowUser(userId)
             .then(data => {
                 if (data.resultCode === 0) {
-
                     this.props.unfollowUser(userId);
+                    this.props.requestToFollow(userId, true);
                     this.props.requestIsFetching(false);
                 }
+                this.props.requestToFollow(userId, false);
             })
     }
 
@@ -102,7 +108,8 @@ const ConnectComponent = connect(mapStateToProps, {
     setUsers,
     usersTotalCount,
     selectPage,
-    requestIsFetching
+    requestIsFetching,
+    requestToFollow
 });
 export type UsersContainerPropsType = ConnectedProps<typeof ConnectComponent>;
 export const UsersContainer = ConnectComponent(UsersContainerWithRequest);

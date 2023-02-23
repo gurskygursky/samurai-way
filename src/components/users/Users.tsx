@@ -37,8 +37,8 @@ export const Users: React.FC<PropsType> = ({users, follow, unfollow, selectedPag
                         <div style={{color: 'black'}}>{user.name}</div>
                         <div>{user.status}</div>
                         {user.followed
-                            ? <button onClick={() => unfollow(user.id)}>FOLLOW</button>
-                            : <button onClick={() => follow(user.id)}>UNFOLLOW</button>
+                            ? <button disabled={props.isFollowing.some(id => id === user.id)} onClick={() => unfollow(user.id)}>FOLLOW</button>
+                            : <button disabled={props.isFollowing.some(id => id === user.id)} onClick={() => follow(user.id)}>UNFOLLOW</button>
                         }
                     </div>
                 )

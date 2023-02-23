@@ -6,7 +6,8 @@ enum ACTIONS {
     UNFOLLOW = 'UNFOLLOW',
     USERS_TOTAL_COUNT = 'USERS_TOTAL_COUNT',
     SELECT_PAGE = 'SELECT_PAGE',
-    REQUEST_IS_FETCHING = 'REQUEST_IS_FETCHING'
+    REQUEST_IS_FETCHING = 'REQUEST_IS_FETCHING',
+    REQUEST_TO_FOLLOW_IS_FETCHING = 'REQUEST_TO_FOLLOW_IS_FETCHING',
 }
 
 type InitialStateType = {
@@ -16,6 +17,7 @@ type InitialStateType = {
     currentPage: number;
     pageSize: number;
     isFetching: boolean;
+    isFollowing: Array<number>;
 }
 
 const initialState: InitialStateType = {
@@ -25,16 +27,15 @@ const initialState: InitialStateType = {
     currentPage: 1,
     pageSize: 10,
     isFetching: false,
+    isFollowing: [],
 };
 
 export const usersReducer = (state = initialState, action: UsersReducerActionsType): InitialStateType => {
     switch (action.type) {
         case ACTIONS.SET_USERS: {
-            console.log(state.currentPage);
             return {...state, users: action.payload.users}
         }
         case ACTIONS.FOLLOW: {
-            console.log(action.payload)
             return {
                 ...state,
                 users: state.users.map(user => user.id === action.payload.userId
@@ -62,6 +63,13 @@ export const usersReducer = (state = initialState, action: UsersReducerActionsTy
         case ACTIONS.REQUEST_IS_FETCHING: {
             return {
                 ...state, isFetching: action.payload.isFetching
+            }
+        }
+        case ACTIONS.REQUEST_TO_FOLLOW_IS_FETCHING: {
+            return {
+                ...state, isFollowing: action.payload.isFetching
+                    ? [...state.isFollowing, action.payload.userId]
+                    : state.isFollowing.filter(id => id !== action.payload.userId)
             }
         }
         default:
@@ -110,6 +118,12 @@ export const requestIsFetching = (isFetching: boolean) => {
         payload: {isFetching}
     } as const
 }
+export const requestToFollow = (userId: number, isFetching: boolean) => {
+    return {
+        type: ACTIONS.REQUEST_TO_FOLLOW_IS_FETCHING,
+        payload: {userId, isFetching}
+    } as const
+}
 
 
 // actions types
@@ -119,10 +133,12 @@ type UnfollowUserActionType = ReturnType<typeof unfollowUser>;
 type UsersTotalCountActionType = ReturnType<typeof usersTotalCount>;
 type SelectPageActionType = ReturnType<typeof selectPage>;
 type FetchingActionType = ReturnType<typeof requestIsFetching>;
+type FollowingActionType = ReturnType<typeof requestToFollow>;
 
 export type UsersReducerActionsType = SetUsersActionType
     | FollowUserActionType
     | UnfollowUserActionType
     | UsersTotalCountActionType
     | SelectPageActionType
-    | FetchingActionType;
+    | FetchingActionType
+    | FollowingActionType;
