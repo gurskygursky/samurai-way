@@ -28,7 +28,7 @@ export const authReducer = (state = initialState, action: ActionsType) => {
     switch (action.type) {
         case ACTIONS.SET_AUTH_USER_DATA: {
             return {
-                ...state.authData,
+                ...state,
                 authData: action.payload.authData,
             }
         }
@@ -44,7 +44,7 @@ export const authReducer = (state = initialState, action: ActionsType) => {
 }
 
 // actions
-export const setAuthUserData = (authData: AuthDataResponseType) => {
+export const setAuthUserData = (authData: AuthUserDataResponseType) => {
     return {
         type: ACTIONS.SET_AUTH_USER_DATA,
         payload: {authData},

@@ -18,18 +18,18 @@ export class SignInContainerWithRequest extends React.Component<SignInContainerP
             })
     }
 
-    componentDidUpdate(prevProps: Readonly<SignInContainerPropsType>, prevState: Readonly<any>, snapshot?: any) {
-        instance.get(`auth/me`)
-            .then(res => {
-                if (res.data.resultCode === 0) {
-                    this.props.requestIsAuth(true);
-                    this.props.setAuthUserData(res.data.data);
-                }
-                if (res.data.resultCode === 1) {
-                    this.props.requestIsAuth(false)
-                }
-            })
-    }
+    // componentDidUpdate(prevProps: Readonly<SignInContainerPropsType>, prevState: Readonly<any>, snapshot?: any) {
+    //     instance.get(`auth/me`)
+    //         .then(res => {
+    //             if (res.data.resultCode === 0) {
+    //                 this.props.requestIsAuth(true);
+    //                 this.props.setAuthUserData(res.data.data);
+    //             }
+    //             if (res.data.resultCode === 1) {
+    //                 this.props.requestIsAuth(false)
+    //             }
+    //         })
+    // }
 
     render() {
         return (

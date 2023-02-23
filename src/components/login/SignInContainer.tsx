@@ -13,8 +13,8 @@ type mapStateToPropsType = {
 }
 const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
     return {
-        authData: state.authReducer,
-        isAuth: state.authReducer,
+        authData: state.authReducer.authData,
+        isAuth: state.authReducer.isAuth,
     }
 }
 
