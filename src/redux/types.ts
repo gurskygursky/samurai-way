@@ -68,3 +68,17 @@ export type AuthDataResponseType = {
     resultCode: number;
 
 }
+
+export type UserResponseType = {
+    followed: boolean;
+    id: number;
+    name: string;
+    photos: PhotosResponseType;
+    status: string | null;
+    uniqueUrlName: string | null;
+}
+export type GetUsersResponseType = {
+    error: string | null;
+    totalCount: number | null;
+    items: Array<UserResponseType>;
+}

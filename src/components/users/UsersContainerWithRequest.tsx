@@ -1,6 +1,6 @@
 import React from 'react';
 import {UsersContainerPropsType} from './UsersContainer';
-import {instance} from './../../API/users-api';
+import {instance, UsersAPI} from '../../API/api';
 import {Users} from "./Users";
 import {Preloader} from './../preloader/Preloader';
 
@@ -8,44 +8,71 @@ export class UsersContainerWithRequest extends React.Component<UsersContainerPro
 
     componentDidMount() {
         this.props.requestIsFetching(true);
-        instance.get(`users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(res => {
-                this.props.setUsers(res.data.items)
-                this.props.usersTotalCount(res.data.totalCount)
-                this.props.selectPage(this.props.currentPage)
-                this.props.requestIsFetching(false)
+        UsersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+            .then(data => {
+                this.props.setUsers(data.items);
+                this.props.usersTotalCount(data.totalCount);
+                this.props.selectPage(this.props.currentPage);
+                this.props.requestIsFetching(false);
             })
+        // instance.get(`users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        //     .then(res => {
+        //         this.props.setUsers(res.data.items)
+        //         this.props.usersTotalCount(res.data.totalCount)
+        //         this.props.selectPage(this.props.currentPage)
+        //         this.props.requestIsFetching(false)
+        //     })
     }
 
     selectedPageNumber = (pageNumber: number) => {
         this.props.requestIsFetching(true);
         this.props.selectPage(pageNumber);
-        instance.get(`users?page=${pageNumber}&count=${this.props.pageSize}`)
-            .then(res => {
-                this.props.setUsers(res.data.items)
+        UsersAPI.getUsers(pageNumber, this.props.pageSize)
+            .then(data => {
+                this.props.setUsers(data.items);
                 this.props.requestIsFetching(false);
             })
+        // instance.get(`users?page=${pageNumber}&count=${this.props.pageSize}`)
+        //     .then(res => {
+        //         this.props.setUsers(res.data.items)
+        //         this.props.requestIsFetching(false);
+        //     })
     }
     follow = (userId: number) => {
         this.props.requestIsFetching(true);
-        instance.post(`follow/${userId}`)
-            .then(res => {
-                if (res.data.resultCode === 0) {
+        UsersAPI.followUser(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
                     this.props.followUser(userId);
                     this.props.requestIsFetching(false);
                 }
             })
+        // instance.post(`follow/${userId}`)
+        //     .then(res => {
+        //         if (res.data.resultCode === 0) {
+        //             this.props.followUser(userId);
+        //             this.props.requestIsFetching(false);
+        //         }
+        //     })
     }
     unfollow = (userId: number) => {
         this.props.requestIsFetching(true);
-        instance.delete(`follow/${userId}`)
-            .then(res => {
-                if (res.data.resultCode === 0) {
+        UsersAPI.unfollowUser(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
 
                     this.props.unfollowUser(userId);
                     this.props.requestIsFetching(false);
                 }
             })
+        // instance.delete(`follow/${userId}`)
+        //     .then(res => {
+        //         if (res.data.resultCode === 0) {
+        //
+        //             this.props.unfollowUser(userId);
+        //             this.props.requestIsFetching(false);
+        //         }
+        //     })
     }
 
     render() {

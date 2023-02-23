@@ -1,5 +1,4 @@
-import {UserResponseType} from './../../API/users-api';
-import {logDOM} from "@testing-library/react";
+import {UserResponseType} from '../../API/api';
 
 enum ACTIONS {
     SET_USERS = 'SET_USERS',
@@ -32,7 +31,7 @@ export const usersReducer = (state = initialState, action: UsersReducerActionsTy
     switch (action.type) {
         case ACTIONS.SET_USERS: {
             console.log(state.currentPage);
-            return {...state, users: [...action.payload.users]}
+            return {...state, users: action.payload.users}
         }
         case ACTIONS.FOLLOW: {
             console.log(action.payload)

@@ -9,7 +9,7 @@ import {
     unfollowUser,
     usersTotalCount
 } from './../../redux/reducers/users-reducer';
-import {UserResponseType} from './../../API/users-api';
+import {UserResponseType} from '../../API/api';
 import {UsersContainerWithRequest} from './UsersContainerWithRequest';
 
 type mapStateToPropsType = {

@@ -1,5 +1,5 @@
 import React from "react";
-import {instance} from "./../../API/users-api";
+import {instance, UsersAPI} from "../../API/api";
 import {Profile} from "./Profile";
 import {ProfileContainerPropsType} from "./ProfileContainer";
 import {Preloader} from "./../../components/preloader/Preloader";
@@ -9,15 +9,21 @@ export class ProfileContainerWithRequest extends React.Component<ProfileContaine
         this.props.requestIsFetching(true);
 
         let userId = this.props.match.params.userId;
-        if (!userId){
+        if (!userId) {
             userId = String(18933);
         }
 
-        instance.get(`profile/` + userId)
-            .then(res => {
-                this.props.setUserProfile(res.data);
+        UsersAPI.selectUserProfile(userId)
+            .then(data => {
+                this.props.setUserProfile(data);
                 this.props.requestIsFetching(false);
             })
+
+        // instance.get(`profile/` + userId)
+        //     .then(res => {
+        //         this.props.setUserProfile(res.data);
+        //         this.props.requestIsFetching(false);
+        //     })
     }
 
     render() {
