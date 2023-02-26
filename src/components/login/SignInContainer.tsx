@@ -1,6 +1,6 @@
 import React from "react";
 import {connect, ConnectedProps} from "react-redux";
-import {requestIsAuth, setAuthUserData} from "./../../redux/reducers/auth-reducer";
+import {requestIsAuth, setAuthUserData, isAuthMe} from "./../../redux/reducers/auth-reducer";
 import {RootStoreType} from "./../../redux/store";
 import {AuthUserDataResponseType} from "./../../redux/types";
 import {AuthAPI} from "./../../API/api";
@@ -20,17 +20,18 @@ const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
 
 export class SignInContainerWithRequest extends React.Component<SignInContainerPropsType, any> {
     componentDidMount() {
+        this.props.isAuthMe();
         // this.props.requestIsFetching(true);
-        AuthAPI.auth()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    this.props.requestIsAuth(true);
-                    this.props.setAuthUserData(data.data);
-                }
-                if (data.resultCode === 1) {
-                    this.props.requestIsAuth(false);
-                }
-            })
+        // AuthAPI.auth()
+        //     .then(data => {
+        //         if (data.resultCode === 0) {
+        //             this.props.requestIsAuth(true);
+        //             this.props.setAuthUserData(data.data);
+        //         }
+        //         if (data.resultCode === 1) {
+        //             this.props.requestIsAuth(false);
+        //         }
+        //     })
     }
 
     render() {
@@ -43,7 +44,7 @@ export class SignInContainerWithRequest extends React.Component<SignInContainerP
 }
 
 export const ConnectComponent = connect(mapStateToProps, {
-    setAuthUserData, requestIsAuth
+    setAuthUserData, requestIsAuth, isAuthMe,
 });
 
 export type SignInContainerPropsType = ConnectedProps<typeof ConnectComponent>;

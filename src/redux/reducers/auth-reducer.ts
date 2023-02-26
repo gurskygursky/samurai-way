@@ -1,4 +1,6 @@
-import {AuthUserDataResponseType} from 'src/redux/types';
+import {AuthDataResponseType, AuthUserDataResponseType} from 'src/redux/types';
+import {Dispatch} from "redux";
+import {AuthAPI} from "./../../API/api";
 
 enum ACTIONS {
     SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA',
@@ -55,6 +57,21 @@ export const requestIsAuth = (isAuth: boolean) => {
         type: ACTIONS.REQUEST_IS_AUTH,
         payload: {isAuth},
     } as const
+}
+
+export const isAuthMe = () => {
+    return (dispatch: Dispatch) => {
+        AuthAPI.auth()
+            .then((data: AuthDataResponseType) => {
+                if (data.resultCode === 0) {
+                    dispatch(requestIsAuth(true));
+                    dispatch(setAuthUserData(data.data));
+                }
+                if (data.resultCode === 1) {
+                    dispatch(requestIsAuth(false));
+                }
+            })
+    }
 }
 
 // actions types

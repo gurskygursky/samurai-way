@@ -1,7 +1,7 @@
 import {ProfileResponseType} from 'src/redux/types';
 import {connect, ConnectedProps} from 'react-redux';
 import {RootStoreType} from './../../redux/store';
-import {setUserProfile} from "./../../redux/reducers/profile-reducer";
+import {getUserProfile, setUserProfile} from "./../../redux/reducers/profile-reducer";
 import {requestIsFetching} from "./../../redux/reducers/users-reducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import React from 'react';
@@ -23,18 +23,18 @@ const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
 
 export class ProfileContainerWithRequest extends React.Component<ProfileContainerPropsType, any> {
     componentDidMount() {
-        this.props.requestIsFetching(true);
-
+        // this.props.requestIsFetching(true);
         let userId = this.props.match.params.userId;
         if (!userId) {
             userId = String(18933);
         }
+        this.props.getUserProfile(userId);
 
-        UsersAPI.selectUserProfile(userId)
-            .then(data => {
-                this.props.setUserProfile(data);
-                this.props.requestIsFetching(false);
-            })
+        // UsersAPI.selectUserProfile(userId)
+        //     .then(data => {
+        //         this.props.setUserProfile(data);
+        //         this.props.requestIsFetching(false);
+        //     })
     }
 
     render() {
@@ -52,7 +52,8 @@ export class ProfileContainerWithRequest extends React.Component<ProfileContaine
 
 const ConnectComponent = connect(mapStateToProps, {
     setUserProfile,
-    requestIsFetching
+    requestIsFetching,
+    getUserProfile,
 })
 
 export type PathParamType = {

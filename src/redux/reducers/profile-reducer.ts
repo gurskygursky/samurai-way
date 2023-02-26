@@ -1,4 +1,7 @@
 import {ProfilePageType, ProfileResponseType} from 'src/redux/types';
+import {Dispatch} from "redux";
+import {UsersAPI} from "./../../API/api";
+import { requestIsFetching } from './users-reducer';
 
 enum ACTIONS {
     ADD_POST = 'ADD_POST',
@@ -49,6 +52,17 @@ export const setUserProfile = (profile: ProfileResponseType ) => {
         type: ACTIONS.SET_USER_PROFILE,
         payload: {profile},
     } as const
+}
+
+export const getUserProfile = (userId: string) => {
+    return (dispatch: Dispatch) => {
+        dispatch(requestIsFetching(true));
+        UsersAPI.selectUserProfile(userId)
+            .then((data: ProfileResponseType) => {
+                dispatch(setUserProfile(data));
+                dispatch(requestIsFetching(false));
+            });
+    }
 }
 
 // actions types
