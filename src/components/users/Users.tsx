@@ -23,6 +23,9 @@ interface PropsType extends UsersContainerPropsType {
 export const Users: React.FC<PropsType> = ({users, follow, unfollow, selectedPageNumber,  ...props}: PropsType) => {
     return (
         <div style={{backgroundColor: 'blueviolet'}} className={'content'}>
+            <div>
+                {props.error}
+            </div>
             {users.map((user) => {
                 return (
                     <div key={user.id}>

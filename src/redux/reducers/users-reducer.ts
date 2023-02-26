@@ -10,6 +10,7 @@ enum ACTIONS {
     SELECT_PAGE = 'SELECT_PAGE',
     REQUEST_IS_FETCHING = 'REQUEST_IS_FETCHING',
     REQUEST_TO_FOLLOW_IS_FETCHING = 'REQUEST_TO_FOLLOW_IS_FETCHING',
+    ERROR = 'ERROR',
 }
 
 type InitialStateType = {
@@ -74,6 +75,12 @@ export const usersReducer = (state = initialState, action: UsersReducerActionsTy
                     : state.isFollowing.filter(id => id !== action.payload.userId)
             }
         }
+        case ACTIONS.ERROR: {
+            return {
+                ...state,
+                error: action.payload.error
+            }
+        }
         default:
             return state;
     }
@@ -103,6 +110,9 @@ export const followThunk = (userId: number) => {
                     dispatch(requestToFollow(userId, true));
                     dispatch(requestIsFetching(false));
                 }
+                if (data.resultCode === 1) {
+                    dispatch(errorHandler(data.messages[0]))
+                }
                 dispatch(requestToFollow(userId, false));
 
             });
@@ -110,7 +120,7 @@ export const followThunk = (userId: number) => {
 }
 export const unfollowThunk = (userId: number) => {
     return (dispatch: Dispatch) => {
-        dispatch(requestIsFetching(true));
+        // dispatch(requestIsFetching(true));
         UsersAPI.unfollowUser(userId)
             .then((data: FollowingUserType) => {
                 if (data.resultCode === 0) {
@@ -118,7 +128,10 @@ export const unfollowThunk = (userId: number) => {
                     dispatch(requestToFollow(userId, true));
                     dispatch(requestIsFetching(false));
                 }
-                dispatch(requestToFollow(userId, false));
+                if (data.resultCode === 1) {
+                    dispatch(errorHandler(data.messages[0]))
+                }
+                // dispatch(requestToFollow(userId, false));
             });
     };
 }
@@ -170,6 +183,12 @@ export const requestToFollow = (userId: number, isFetching: boolean) => {
         payload: {userId, isFetching}
     } as const
 }
+export const errorHandler = (error: string) => {
+    return {
+        type: ACTIONS.ERROR,
+        payload: {error}
+    } as const
+}
 
 
 // actions types
@@ -180,6 +199,7 @@ type UsersTotalCountActionType = ReturnType<typeof usersTotalCount>;
 type SelectPageActionType = ReturnType<typeof selectPage>;
 type FetchingActionType = ReturnType<typeof requestIsFetching>;
 type FollowingActionType = ReturnType<typeof requestToFollow>;
+type ErrorHandlerType = ReturnType<typeof errorHandler>;
 
 export type UsersReducerActionsType = SetUsersActionType
     | FollowUserActionType
@@ -187,4 +207,5 @@ export type UsersReducerActionsType = SetUsersActionType
     | UsersTotalCountActionType
     | SelectPageActionType
     | FetchingActionType
-    | FollowingActionType;
+    | FollowingActionType
+    | ErrorHandlerType;
