@@ -46,7 +46,7 @@ export type ContactsResponseType = {
 }
 
 
-export type ProfileResponseType= {
+export type ProfileResponseType = {
     aboutMe: string | null;
     contacts: ContactsResponseType;
     lookingForAJob: boolean;
@@ -80,6 +80,12 @@ export type UserResponseType = {
 
 export type GetUsersResponseType = {
     error: string | null;
-    totalCount: number | null;
+    totalCount: number;
     items: Array<UserResponseType>;
+}
+
+export type FollowingUserType = {
+    resultCode: number;
+    messages: string[];
+    data: {};
 }

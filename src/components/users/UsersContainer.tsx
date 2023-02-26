@@ -6,7 +6,7 @@ import {
     selectPage,
     setUsers,
     unfollowUser,
-    usersTotalCount, requestToFollow
+    usersTotalCount, requestToFollow, getUsers, followThunk, unfollowThunk
 } from './../../redux/reducers/users-reducer';
 import {UsersAPI} from '../../API/api';
 import React from "react";
@@ -39,49 +39,54 @@ const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
 export class UsersContainerWithRequest extends React.Component<UsersContainerPropsType, any> {
 
     componentDidMount() {
-        this.props.requestIsFetching(true);
-        UsersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.setUsers(data.items);
-                this.props.usersTotalCount(data.totalCount);
-                this.props.selectPage(this.props.currentPage);
-                this.props.requestIsFetching(false);
-            })
+        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        // this.props.requestIsFetching(true);
+        // UsersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+        //     .then(data => {
+        //         this.props.setUsers(data.items);
+        //         this.props.usersTotalCount(data.totalCount);
+        //         this.props.selectPage(this.props.currentPage);
+        //         this.props.requestIsFetching(false);
+        //     })
     }
 
     selectedPageNumber = (pageNumber: number) => {
-        this.props.requestIsFetching(true);
-        this.props.selectPage(pageNumber);
-        UsersAPI.getUsers(pageNumber, this.props.pageSize)
-            .then(data => {
-                this.props.setUsers(data.items);
-                this.props.requestIsFetching(false);
-            })
+        this.props.getUsers(pageNumber, this.props.pageSize);
+        // this.props.selectPage(pageNumber);
+        // this.props.requestIsFetching(true);
+        // this.props.selectPage(pageNumber);
+        // UsersAPI.getUsers(pageNumber, this.props.pageSize)
+        //     .then(data => {
+        //         this.props.setUsers(data.items);
+        //         this.props.requestIsFetching(false);
+        //     })
     }
     follow = (userId: number) => {
-        this.props.requestIsFetching(true);
-        UsersAPI.followUser(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    this.props.followUser(userId);
-                    this.props.requestToFollow(userId, true);
-                    this.props.requestIsFetching(false);
-                }
-                this.props.requestToFollow(userId, false);
-
-            })
+        this.props.followThunk(userId);
+        // this.props.requestIsFetching(true);
+        // UsersAPI.followUser(userId)
+        //     .then(data => {
+        //         if (data.resultCode === 0) {
+        //             this.props.followUser(userId);
+        //             this.props.requestToFollow(userId, true);
+        //             this.props.requestIsFetching(false);
+        //         }
+        //         this.props.requestToFollow(userId, false);
+        //
+        //     })
     }
     unfollow = (userId: number) => {
-        this.props.requestIsFetching(true);
-        UsersAPI.unfollowUser(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    this.props.unfollowUser(userId);
-                    this.props.requestToFollow(userId, true);
-                    this.props.requestIsFetching(false);
-                }
-                this.props.requestToFollow(userId, false);
-            })
+        this.props.unfollowThunk(userId);
+        // this.props.requestIsFetching(true);
+        // UsersAPI.unfollowUser(userId)
+        //     .then(data => {
+        //         if (data.resultCode === 0) {
+        //             this.props.unfollowUser(userId);
+        //             this.props.requestToFollow(userId, true);
+        //             this.props.requestIsFetching(false);
+        //         }
+        //         this.props.requestToFollow(userId, false);
+        //     })
     }
 
     render() {
@@ -109,7 +114,10 @@ const ConnectComponent = connect(mapStateToProps, {
     usersTotalCount,
     selectPage,
     requestIsFetching,
-    requestToFollow
+    requestToFollow,
+    getUsers,
+    followThunk,
+    unfollowThunk,
 });
 export type UsersContainerPropsType = ConnectedProps<typeof ConnectComponent>;
 export const UsersContainer = ConnectComponent(UsersContainerWithRequest);

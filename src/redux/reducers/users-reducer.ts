@@ -1,4 +1,6 @@
-import {UserResponseType} from "./../../redux/types";
+import {FollowingUserType, GetUsersResponseType, UserResponseType} from "./../../redux/types";
+import {UsersAPI} from "./../../API/api";
+import {Dispatch} from "redux";
 
 enum ACTIONS {
     SET_USERS = 'SET_USERS',
@@ -21,7 +23,7 @@ type InitialStateType = {
 }
 
 const initialState: InitialStateType = {
-    users: [],
+    users: [] as UserResponseType[],
     totalCount: 0,
     error: '',
     currentPage: 1,
@@ -39,14 +41,14 @@ export const usersReducer = (state = initialState, action: UsersReducerActionsTy
             return {
                 ...state,
                 users: state.users.map(user => user.id === action.payload.userId
-                    ? {...user, followed: true}
+                    ? {...user, followed: action.payload.follow}
                     : user)
             }
         }
         case ACTIONS.UNFOLLOW: {
             return {
                 ...state, users: state.users.map(user => user.id === action.payload.userId
-                    ? {...user, followed: false}
+                    ? {...user, followed: action.payload.follow}
                     : user)
             }
         }
@@ -77,6 +79,50 @@ export const usersReducer = (state = initialState, action: UsersReducerActionsTy
     }
 }
 
+//thunk
+export const getUsers = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(requestIsFetching(true));
+        UsersAPI.getUsers(currentPage, pageSize)
+            .then((data: GetUsersResponseType) => {
+                dispatch(setUsers(data.items));
+                dispatch(usersTotalCount(data.totalCount));
+                dispatch(selectPage(currentPage));
+                dispatch(requestIsFetching(false));
+            });
+    };
+}
+
+export const followThunk = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(requestIsFetching(true));
+        UsersAPI.followUser(userId)
+            .then((data: FollowingUserType) => {
+                if (data.resultCode === 0) {
+                    dispatch(followUser(userId, true));
+                    dispatch(requestToFollow(userId, true));
+                    dispatch(requestIsFetching(false));
+                }
+                dispatch(requestToFollow(userId, false));
+
+            });
+    };
+}
+export const unfollowThunk = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(requestIsFetching(true));
+        UsersAPI.unfollowUser(userId)
+            .then((data: FollowingUserType) => {
+                if (data.resultCode === 0) {
+                    dispatch(unfollowUser(userId, false));
+                    dispatch(requestToFollow(userId, true));
+                    dispatch(requestIsFetching(false));
+                }
+                dispatch(requestToFollow(userId, false));
+            });
+    };
+}
+
 // actions
 export const setUsers = (users: Array<UserResponseType>) => {
     return {
@@ -84,19 +130,19 @@ export const setUsers = (users: Array<UserResponseType>) => {
         payload: {users},
     } as const
 }
-export const followUser = (userId: number) => {
+export const followUser = (userId: number, follow: boolean) => {
     return {
         type: ACTIONS.FOLLOW,
         payload: {
-            userId,
+            userId, follow
         },
     } as const
 }
-export const unfollowUser = (userId: number) => {
+export const unfollowUser = (userId: number, follow: boolean) => {
     return {
         type: ACTIONS.UNFOLLOW,
         payload: {
-            userId,
+            userId, follow,
         },
     } as const
 }
