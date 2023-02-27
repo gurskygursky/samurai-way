@@ -9,7 +9,7 @@ type PropsType = {
 
 export const SignIn: React.FC<PropsType> = ({isAuth, ...props}: PropsType) => {
     return (
-        <div>
+        <div style={{backgroundColor: 'lightpink', color: 'whitesmoke'}}>
             {
                 isAuth
                     ? props.authData.login

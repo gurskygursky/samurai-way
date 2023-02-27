@@ -2,6 +2,7 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {Message} from './Message';
 import {MessageType} from 'src/redux/types';
 import {MessagesContainerType} from './../../components/messages/MessagesContainer';
+import {Redirect} from "react-router-dom";
 
 export const Messages = (props: MessagesContainerType) => {
 
@@ -26,6 +27,10 @@ export const Messages = (props: MessagesContainerType) => {
         if (key === 'Enter') {
             sendMessage();
         }
+    }
+
+    if (!props.isAuth) {
+        return <Redirect to={'/login'}/>
     }
 
     return (

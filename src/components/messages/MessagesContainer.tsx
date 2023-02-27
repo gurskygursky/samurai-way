@@ -8,6 +8,7 @@ import {RootStoreType} from './../../redux/store';
 const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
     return {
         arrayMessages: state.DialogsReducer.arrayMessages,
+        isAuth: state.authReducer.isAuth,
     }
 }
 
@@ -21,6 +22,7 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
 
 type mapStateToPropsType = {
     arrayMessages: MessageType[];
+    isAuth: boolean;
 }
 type mapDispatchToPropsType = {
     sendMessage: (messageText: string) => void;

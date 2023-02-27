@@ -23,6 +23,9 @@ export const Navbar = () => {
                 <li>
                     <NavLink to={'/settings'} style={{textDecoration: 'none'}}>Settings</NavLink>
                 </li>
+                <li>
+                    <NavLink to={'/login'} style={{textDecoration: 'none'}}>Login</NavLink>
+                </li>
             </ul>
         </div>
     );

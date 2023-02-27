@@ -3,7 +3,7 @@ import {connect, ConnectedProps} from 'react-redux';
 import {RootStoreType} from './../../redux/store';
 import {getUserProfile, setUserProfile} from "./../../redux/reducers/profile-reducer";
 import {requestIsFetching} from "./../../redux/reducers/users-reducer";
-import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
 import React from 'react';
 import {Preloader} from "./../preloader/Preloader";
 import {Profile} from "./../profile/Profile";
@@ -11,12 +11,14 @@ import {Profile} from "./../profile/Profile";
 type mapStateToPropsType = {
     profile: ProfileResponseType;
     isFetching: boolean;
+    isAuth: boolean;
 }
 
 const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
     return {
         profile: state.ProfileReducer.profile,
         isFetching: state.usersReducer.isFetching,
+        isAuth: state.authReducer.isAuth,
     }
 }
 
@@ -32,6 +34,9 @@ export class ProfileContainerWithRequest extends React.Component<ProfileContaine
     }
 
     render() {
+        if (!this.props.isAuth) {
+            return <Redirect to={'/login'}/>
+        }
         return (
             <>
                 {
