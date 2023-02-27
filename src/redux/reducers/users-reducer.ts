@@ -120,7 +120,7 @@ export const followThunk = (userId: number) => {
 }
 export const unfollowThunk = (userId: number) => {
     return (dispatch: Dispatch) => {
-        // dispatch(requestIsFetching(true));
+        dispatch(requestIsFetching(true));
         UsersAPI.unfollowUser(userId)
             .then((data: FollowingUserType) => {
                 if (data.resultCode === 0) {
@@ -131,7 +131,7 @@ export const unfollowThunk = (userId: number) => {
                 if (data.resultCode === 1) {
                     dispatch(errorHandler(data.messages[0]))
                 }
-                // dispatch(requestToFollow(userId, false));
+                dispatch(requestToFollow(userId, false));
             });
     };
 }

@@ -5,7 +5,6 @@ import {getUserProfile, setUserProfile} from "./../../redux/reducers/profile-red
 import {requestIsFetching} from "./../../redux/reducers/users-reducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import React from 'react';
-import {UsersAPI} from "./../../API/api";
 import {Preloader} from "./../preloader/Preloader";
 import {Profile} from "./../profile/Profile";
 
@@ -23,18 +22,13 @@ const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
 
 export class ProfileContainerWithRequest extends React.Component<ProfileContainerPropsType, any> {
     componentDidMount() {
-        // this.props.requestIsFetching(true);
+
         let userId = this.props.match.params.userId;
         if (!userId) {
             userId = String(18933);
         }
-        this.props.getUserProfile(userId);
 
-        // UsersAPI.selectUserProfile(userId)
-        //     .then(data => {
-        //         this.props.setUserProfile(data);
-        //         this.props.requestIsFetching(false);
-        //     })
+        this.props.getUserProfile(userId);
     }
 
     render() {

@@ -18,11 +18,6 @@ export const ProfileDescription: React.FC<PropsType> = ({profile}) => {
                        alt={'avatar logo'}
                 />
         }
-            {/*<img style={{width: '64px', height: '64px'}}*/}
-            {/*     src={avatarImage}*/}
-            {/*     alt={'avatar logo'}*/}
-            {/*/>*/}
-            {/*<span>Nickname:</span>*/}
             {
                 profile.userId
                     ? <span>Nickname: {profile.userId}</span>
