@@ -4,6 +4,7 @@ import {SendMessageActionCreator} from './../../redux/reducers/dialogs-reducer';
 import {MessageType} from 'src/redux/types';
 import {Messages} from './../../components/messages/Messages';
 import {RootStoreType} from './../../redux/store';
+import {WithAuthRedirect} from "./../../hoc/WithAuthRedirect";
 
 const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
     return {
@@ -29,4 +30,4 @@ type mapDispatchToPropsType = {
 }
 export type MessagesContainerType = mapStateToPropsType & mapDispatchToPropsType;
 
-export const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(Messages);
+export const MessagesContainer = WithAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(Messages));
