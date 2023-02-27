@@ -1,7 +1,12 @@
 import {ProfileResponseType} from 'src/redux/types';
 import {connect, ConnectedProps} from 'react-redux';
 import {RootStoreType} from './../../redux/store';
-import {getUserProfile, setUserProfile} from "./../../redux/reducers/profile-reducer";
+import {
+    getUserProfile,
+    getUserStatusThunk,
+    setUserProfile,
+    setUserStatusThunk
+} from "./../../redux/reducers/profile-reducer";
 import {requestIsFetching} from "./../../redux/reducers/users-reducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import React, {ComponentType} from 'react';
@@ -14,6 +19,7 @@ type mapStateToPropsType = {
     profile: ProfileResponseType;
     isFetching: boolean;
     isAuth: boolean;
+    status: string;
 }
 
 const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
@@ -21,6 +27,7 @@ const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
         profile: state.ProfileReducer.profile,
         isFetching: state.usersReducer.isFetching,
         isAuth: state.authReducer.isAuth,
+        status: state.ProfileReducer.user.status,
     }
 }
 
@@ -33,6 +40,7 @@ export class ProfileContainerWithRequest extends React.Component<ProfileContaine
         }
 
         this.props.getUserProfile(userId);
+        this.props.getUserStatusThunk(userId);
     }
 
     render() {
@@ -42,7 +50,7 @@ export class ProfileContainerWithRequest extends React.Component<ProfileContaine
                 {
                     this.props.isFetching
                         ? <Preloader/>
-                        : <Profile profile={this.props.profile}/>
+                        : <Profile profile={this.props.profile} status={this.props.status} userId={this.props.profile.userId}/>
                 }
             </>
         )
@@ -53,6 +61,8 @@ const ConnectComponent = connect(mapStateToProps, {
     setUserProfile,
     requestIsFetching,
     getUserProfile,
+    getUserStatusThunk,
+    setUserStatusThunk,
 })
 
 export type PathParamType = {
@@ -66,6 +76,6 @@ export type ProfileContainerPropsType = ConnectedProps<typeof ConnectComponent> 
 
 export const ProfileContainer = compose<ComponentType>(
     ConnectComponent,
-    WithAuthRedirect,
+    // WithAuthRedirect,
     withRouter,
 )(ProfileContainerWithRequest);

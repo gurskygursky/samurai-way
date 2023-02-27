@@ -14,6 +14,7 @@ export type MessageType = {
 export type ProfilePageType = {
     arrayPosts: Array<PostType>;
     profile: ProfileResponseType;
+    user: UserResponseType;
 }
 export type DialogsPageType = {
     arrayUsers: Array<UserType>;
@@ -74,7 +75,7 @@ export type UserResponseType = {
     id: number;
     name: string;
     photos: PhotosResponseType;
-    status: string | null;
+    status: string;
     uniqueUrlName: string | null;
 }
 

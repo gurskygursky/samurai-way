@@ -32,6 +32,16 @@ export const UsersAPI = {
                 .then(response => response.data)
         )
     },
+    getUserStatus(userId: number) {
+        return (
+            instance.get(`/profile/status/${userId}`)
+        )
+    },
+    setUserStatus(status: string) {
+        return (
+            instance.put(`/profile/status`, {status: status} )
+        )
+    }
 }
 
 export const AuthAPI = {
