@@ -1,10 +1,10 @@
 import {connect} from 'react-redux';
-import {Dispatch} from 'redux';
+import {compose, Dispatch} from 'redux';
 import {SendMessageActionCreator} from './../../redux/reducers/dialogs-reducer';
 import {MessageType} from 'src/redux/types';
 import {Messages} from './../../components/messages/Messages';
 import {RootStoreType} from './../../redux/store';
-import {WithAuthRedirect} from "./../../hoc/WithAuthRedirect";
+import {ComponentType} from "react";
 
 const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
     return {
@@ -30,4 +30,5 @@ type mapDispatchToPropsType = {
 }
 export type MessagesContainerType = mapStateToPropsType & mapDispatchToPropsType;
 
-export const MessagesContainer = WithAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(Messages));
+const ConnectComponent = connect(mapStateToProps, mapDispatchToProps);
+export const MessagesContainer = compose<ComponentType>(ConnectComponent)(Messages);

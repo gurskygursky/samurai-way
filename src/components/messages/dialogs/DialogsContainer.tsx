@@ -1,7 +1,10 @@
 import {Dialogs} from 'src/components/messages/dialogs/Dialogs';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import {RootStoreType} from 'src/redux/store';
 import {UserType} from './../../../redux/types';
+import {compose} from "redux";
+import { WithAuthRedirect } from './../../../hoc/WithAuthRedirect';
+import {ComponentType} from "react";
 
 
 const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
@@ -16,4 +19,5 @@ type mapStateToPropsType = {
 
 export type DialogsContainerType = mapStateToPropsType;
 
-export const DialogsContainer = connect(mapStateToProps)(Dialogs);
+const ConnectComponent = connect(mapStateToProps);
+export const DialogsContainer = compose<ComponentType>(ConnectComponent, WithAuthRedirect)(Dialogs);

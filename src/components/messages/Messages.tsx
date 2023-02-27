@@ -1,8 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {Message} from './Message';
 import {MessageType} from 'src/redux/types';
-import {MessagesContainerType} from './../../components/messages/MessagesContainer';
-
+import {MessagesContainerType} from "./MessagesContainer";
 export const Messages = (props: MessagesContainerType) => {
 
     const messages = props.arrayMessages.map((message: MessageType) => <Message key={message.id}

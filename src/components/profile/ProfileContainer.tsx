@@ -4,10 +4,11 @@ import {RootStoreType} from './../../redux/store';
 import {getUserProfile, setUserProfile} from "./../../redux/reducers/profile-reducer";
 import {requestIsFetching} from "./../../redux/reducers/users-reducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
-import React from 'react';
+import React, {ComponentType} from 'react';
 import {Preloader} from "./../preloader/Preloader";
 import {Profile} from "./../profile/Profile";
 import {WithAuthRedirect} from "./../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 type mapStateToPropsType = {
     profile: ProfileResponseType;
@@ -58,13 +59,13 @@ export type PathParamType = {
     userId: string;
 }
 
-const WithRouterUrlDataProfileContainer = withRouter(ProfileContainerWithRequest);
+// const WithRouterUrlDataProfileContainer = withRouter(ProfileContainerWithRequest);
 // export type ProfileContainerPropsType = ConnectedProps<typeof ConnectComponent> & RouteComponentProps<PathParamType>;
 export type ProfileContainerPropsType = ConnectedProps<typeof ConnectComponent> & RouteComponentProps<PathParamType>;
-export const ProfileContainer = WithAuthRedirect(ConnectComponent(WithRouterUrlDataProfileContainer));
+// export const ProfileContainer = WithAuthRedirect(ConnectComponent(WithRouterUrlDataProfileContainer));
 
-// export const ProfileContainer = compose<ComponentType>(
-//     ConnectComponent,
-//     // withAuthRedirect,
-//     withRouter,
-// )(ProfileContainerWithRequest);
+export const ProfileContainer = compose<ComponentType>(
+    ConnectComponent,
+    WithAuthRedirect,
+    withRouter,
+)(ProfileContainerWithRequest);
