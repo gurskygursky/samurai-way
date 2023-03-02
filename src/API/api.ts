@@ -14,7 +14,7 @@ export const UsersAPI = {
                 .then(response => response.data)
         )
     },
-    selectUserProfile(userId: string) {
+    selectUserProfile(userId: number) {
         return (
             instance.get(`profile/${userId}`)
                 .then(response => response.data)
@@ -32,14 +32,14 @@ export const UsersAPI = {
                 .then(response => response.data)
         )
     },
-    getUserStatus(userId: number) {
+    getStatus(userId: number) {
         return (
             instance.get(`/profile/status/${userId}`)
         )
     },
-    setUserStatus(status: string) {
+    setStatus(status: string) {
         return (
-            instance.put(`/profile/status`, {status: status} )
+            instance.put(`/profile/status`, {status} )
         )
     }
 }

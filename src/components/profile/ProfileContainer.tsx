@@ -4,8 +4,7 @@ import {RootStoreType} from './../../redux/store';
 import {
     getUserProfile,
     getUserStatusThunk,
-    setUserProfile,
-    setUserStatusThunk
+    setUserProfile, setUserStatusThunk,
 } from "./../../redux/reducers/profile-reducer";
 import {requestIsFetching} from "./../../redux/reducers/users-reducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
@@ -27,24 +26,33 @@ const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
         profile: state.ProfileReducer.profile,
         isFetching: state.usersReducer.isFetching,
         isAuth: state.authReducer.isAuth,
-        status: state.ProfileReducer.user.status,
+        status: state.ProfileReducer.status,
     }
 }
 
 export class ProfileContainerWithRequest extends React.Component<ProfileContainerPropsType, any> {
-    componentDidMount() {
+    refreshProfile() {
 
         let userId = this.props.match.params.userId;
         if (!userId) {
             userId = String(18933);
         }
 
-        this.props.getUserProfile(userId);
-        this.props.getUserStatusThunk(userId);
+        this.props.getUserProfile(+userId);
+        this.props.getUserStatusThunk(+userId);
+    }
+
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps: any) {
+        if (this.props.match.params.userId !== prevProps.match.params.userId) {
+            this.refreshProfile()
+        }
     }
 
     render() {
-
         return (
             <>
                 {
@@ -62,7 +70,6 @@ const ConnectComponent = connect(mapStateToProps, {
     requestIsFetching,
     getUserProfile,
     getUserStatusThunk,
-    setUserStatusThunk,
 })
 
 export type PathParamType = {

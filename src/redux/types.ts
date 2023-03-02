@@ -14,7 +14,7 @@ export type MessageType = {
 export type ProfilePageType = {
     arrayPosts: Array<PostType>;
     profile: ProfileResponseType;
-    user: UserResponseType;
+    status: string;
 }
 export type DialogsPageType = {
     arrayUsers: Array<UserType>;

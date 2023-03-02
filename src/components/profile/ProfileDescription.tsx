@@ -1,8 +1,8 @@
 import React, {ChangeEvent, KeyboardEvent, useEffect, useState} from 'react';
 import avatarImage from './../../assets/images/rocket-ship-png.png';
 import {ProfileResponseType} from "./../../redux/types";
-import {getUserStatusThunk, setUserStatusThunk} from "./../../redux/reducers/profile-reducer";
 import {useDispatch} from "react-redux";
+import { setUserStatusThunk } from './../../redux/reducers/profile-reducer';
 
 type PropsType = {
     profile: ProfileResponseType;
@@ -11,11 +11,13 @@ type PropsType = {
 }
 export const ProfileDescription: React.FC<PropsType> = ({profile, status, userId}) => {
 
-    const [value, setValue] = useState<string>('');
+    const [value, setValue] = useState<string>(status);
     const [edit, setEdit] = useState<boolean>(false);
     const dispatch = useDispatch();
 
-    console.log(status);
+    useEffect(() => {
+        setValue(status)
+    }, [status]);
 
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setValue(event.currentTarget.value);
@@ -30,7 +32,6 @@ export const ProfileDescription: React.FC<PropsType> = ({profile, status, userId
     }
 
 
-
     return (
         <div> {
             profile.photos
@@ -43,21 +44,20 @@ export const ProfileDescription: React.FC<PropsType> = ({profile, status, userId
                        alt={'avatar logo'}
                 />
         }
-            {
-                profile.userId
-                    ? <span>Nickname: {profile.userId}</span>
-                    : <span>{status}</span>
-            }
             <div>
                 {
-                    !status &&
-                    <input value={value} onChange={onChangeHandler} autoFocus={true}
-                           onBlur={deactivateEditMode}/>
+                    profile.userId
                 }
             </div>
             <div>
                 {
-                    status && <span onDoubleClick={activateEditMode}>{status}</span>
+                    !edit
+                        ? <span onClick={activateEditMode}>{status ? status : "status text"}</span>
+                        : <input onChange={onChangeHandler}
+                                 value={value}
+                                 autoFocus
+                                 onBlur={deactivateEditMode}
+                        />
                 }
             </div>
         </div>

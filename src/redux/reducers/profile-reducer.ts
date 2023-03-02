@@ -18,7 +18,7 @@ const initialState: ProfilePageType = {
         {id: 4, postText: `YO!`, likesCount: 333},
     ],
     profile: {} as ProfileResponseType,
-    user: {} as UserResponseType,
+    status: '',
 }
 
 export const ProfileReducer = (state = initialState, action: ProfileActionsType) => {
@@ -38,11 +38,6 @@ export const ProfileReducer = (state = initialState, action: ProfileActionsType)
                 ...state, profile: action.payload.profile
             }
         }
-        // case ACTIONS.GET_USER_STATUS: {
-        //     return {
-        //         ...state, status: action.payload.status
-        //     }
-        // }
         case ACTIONS.SET_USER_STATUS: {
             return {
                 ...state, status: action.payload.status
@@ -72,14 +67,8 @@ export const setUserStatus = (status: string) => {
         payload: {status},
     } as const
 }
-// export const getUserStatus = (status: string) => {
-//     return {
-//         type: ACTIONS.SET_USER_STATUS,
-//         payload: {status},
-//     } as const
-// }
 
-export const getUserProfile = (userId: string) => {
+export const getUserProfile = (userId: number) => {
     return (dispatch: Dispatch) => {
         dispatch(requestIsFetching(true));
         UsersAPI.selectUserProfile(userId)
@@ -89,12 +78,12 @@ export const getUserProfile = (userId: string) => {
             });
     }
 }
-export const getUserStatusThunk = (userId: string) => {
+export const getUserStatusThunk = (userId: number) => {
     return (dispatch: Dispatch) => {
         dispatch(requestIsFetching(true));
-        UsersAPI.getUserStatus(+userId)
+        UsersAPI.getStatus(userId)
             .then((data: any) => {
-                dispatch(setUserStatus(data.status));
+                dispatch(setUserStatus(data.data));
                 dispatch(requestIsFetching(false));
             });
     }
@@ -103,9 +92,10 @@ export const getUserStatusThunk = (userId: string) => {
 export const setUserStatusThunk = (status: string) => {
     return (dispatch: Dispatch) => {
         dispatch(requestIsFetching(true));
-        UsersAPI.setUserStatus(status)
+        UsersAPI.setStatus(status)
             .then((data: any) => {
-                if (data.resultCode === 0) {
+                console.log(data.data.resultCode)
+                if (data.data.resultCode === 0) {
                     dispatch(setUserStatus(status));
                     dispatch(requestIsFetching(false));
                 }
