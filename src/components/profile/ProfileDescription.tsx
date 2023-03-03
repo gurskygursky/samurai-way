@@ -15,9 +15,9 @@ export const ProfileDescription: React.FC<PropsType> = ({profile, status, userId
     const [edit, setEdit] = useState<boolean>(false);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        setValue(status)
-    }, [status]);
+    // useEffect(() => {
+    //     setValue(status)
+    // }, [status]);
 
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setValue(event.currentTarget.value);

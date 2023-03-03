@@ -94,7 +94,6 @@ export const setUserStatusThunk = (status: string) => {
         dispatch(requestIsFetching(true));
         UsersAPI.setStatus(status)
             .then((data: any) => {
-                console.log(data.data.resultCode)
                 if (data.data.resultCode === 0) {
                     dispatch(setUserStatus(status));
                     dispatch(requestIsFetching(false));

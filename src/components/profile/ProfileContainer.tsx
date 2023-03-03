@@ -46,11 +46,11 @@ export class ProfileContainerWithRequest extends React.Component<ProfileContaine
         this.refreshProfile()
     }
 
-    componentDidUpdate(prevProps: any) {
-        if (this.props.match.params.userId !== prevProps.match.params.userId) {
-            this.refreshProfile()
-        }
-    }
+    // componentDidUpdate(prevProps: any) {
+    //     if (this.props.match.params.userId !== prevProps.match.params.userId) {
+    //         this.refreshProfile()
+    //     }
+    // }
 
     render() {
         return (

@@ -12,7 +12,7 @@ export const Header = () => {
                 />
                 Samurai Social Network
             </div>
-                <SignInContainer/>
+                {/*<SignInContainer/>*/}
         </div>
     );
 };

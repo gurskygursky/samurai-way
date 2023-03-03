@@ -3,8 +3,9 @@ import {connect, ConnectedProps} from "react-redux";
 import {requestIsAuth, setAuthUserData, isAuthMe} from "./../../redux/reducers/auth-reducer";
 import {RootStoreType} from "./../../redux/store";
 import {AuthUserDataResponseType} from "./../../redux/types";
-import {SignIn} from "./../login/SignIn";
 import {compose} from "redux";
+import {SignIn} from "./SignIn";
+import {SignInDataType} from "./index";
 
 
 type mapStateToPropsType = {
@@ -23,10 +24,17 @@ export class SignInContainerWithRequest extends React.Component<SignInContainerP
         this.props.isAuthMe();
     }
 
+    handleSubmit = (signInData: SignInDataType) => {
+        console.log(signInData);
+    }
+    reset = () => {
+
+    }
     render() {
         return (
             <>
-                <SignIn isAuth={this.props.isAuth} authData={this.props.authData}/>
+                {/*<SignIn isAuth={this.props.isAuth} authData={this.props.authData}/>*/}
+                <SignIn handleSubmit={this.handleSubmit} reset={this.reset} />
             </>
         )
     }
