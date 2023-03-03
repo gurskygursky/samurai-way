@@ -8,11 +8,13 @@ import {SignIn} from "./SignIn";
 
 
 type mapStateToPropsType = {
+    userId: number | null,
     authData: AuthUserDataResponseType,
     isAuth: boolean;
 }
 const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
     return {
+        userId: state.signInReducer.userId,
         authData: state.authReducer.authData,
         isAuth: state.authReducer.isAuth,
     }
@@ -26,7 +28,7 @@ export class SignInContainerWithRequest extends React.Component<SignInContainerP
         return (
             <>
                 {/*<SignIn isAuth={this.props.isAuth} authData={this.props.authData}/>*/}
-                {/*<SignIn />*/}
+                <SignIn userId={this.props.userId} />
             </>
         )
     }

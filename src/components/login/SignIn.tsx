@@ -1,13 +1,15 @@
 import React, {ComponentType} from 'react';
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 import {AuthUserDataResponseType} from "./../../redux/types";
 import {Field, InjectedFormProps, reduxForm, reset} from "redux-form";
 import {compose} from "redux";
 import {SignInDataType} from "./index";
 import {useDispatch} from "react-redux";
 import {signInThunk} from "./../../redux/reducers/signInReducer";
+import { ProfileContainer } from './../../components/profile/ProfileContainer';
 
 type PropsType = {
+    userId: number | null
     // isAuth: boolean;
     // authData: AuthUserDataResponseType;
     // handleSubmit: (singInData: SignInDataType) => void;
@@ -28,7 +30,7 @@ type PropsType = {
 //     );
 // };
 
-export const SignIn = () => {
+export const SignIn: React.FC<PropsType> = ({userId, ...props}) => {
 
     const dispatch = useDispatch();
     const handleSubmit = (signInData: SignInDataType) => {
@@ -37,7 +39,12 @@ export const SignIn = () => {
 
     return (
         <div style={{backgroundColor: 'lightpink', color: 'whitesmoke'}}>
+            {
+                !userId ?
+
             <SignInReduxForm onSubmit={handleSubmit}/>
+                    : <Redirect to={'/profile'}/>
+            }
         </div>
     );
 };

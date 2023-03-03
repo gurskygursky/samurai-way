@@ -49,6 +49,21 @@ export const signInThunk = (signInData: SignInDataType) => {
             });
     }
 }
+export const signOutThunk = () => {
+    return (dispatch: Dispatch) => {
+        dispatch(requestIsFetching(true));
+        AuthAPI.signOut()
+            .then((data: any) => {
+                if (data.resultCode === 0) {
+                    dispatch(signInAC(data, data.data.userId));
+                    dispatch(requestIsFetching(false));
+                }
+                if (data.resultCode === 1) {
+
+                }
+            });
+    }
+}
 //types
 type SignInActionType = ReturnType<typeof signInAC>;
 
