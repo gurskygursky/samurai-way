@@ -4,12 +4,14 @@ import {AuthUserDataResponseType} from "./../../redux/types";
 import {Field, InjectedFormProps, reduxForm, reset} from "redux-form";
 import {compose} from "redux";
 import {SignInDataType} from "./index";
+import {useDispatch} from "react-redux";
+import {signInThunk} from "./../../redux/reducers/signInReducer";
 
 type PropsType = {
     // isAuth: boolean;
     // authData: AuthUserDataResponseType;
-    handleSubmit: (singInData: SignInDataType) => void;
-    reset: () => void;
+    // handleSubmit: (singInData: SignInDataType) => void;
+    // reset: () => void;
 }
 
 // export const SignIn: React.FC<PropsType> = ({isAuth, ...props}: PropsType) => {
@@ -26,10 +28,16 @@ type PropsType = {
 //     );
 // };
 
-export const SignIn: React.FC<PropsType> = ({...props}) => {
+export const SignIn = () => {
+
+    const dispatch = useDispatch();
+    const handleSubmit = (signInData: SignInDataType) => {
+        dispatch(signInThunk(signInData))
+    }
+
     return (
         <div style={{backgroundColor: 'lightpink', color: 'whitesmoke'}}>
-            <SignInReduxForm onSubmit={props.handleSubmit} reset={props.reset}/>
+            <SignInReduxForm onSubmit={handleSubmit}/>
         </div>
     );
 };
@@ -82,7 +90,7 @@ export const SignInForm: React.FC<InjectedFormProps<SignInDataType>> = ({handleS
                 </div>
             </div>
             <div>
-                <button type="submit" >
+                <button type="submit">
                     Submit
                 </button>
                 <button type="button" onClick={reset}>

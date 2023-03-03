@@ -8,6 +8,7 @@ import {DialogsContainer} from 'src/components/messages/dialogs/DialogsContainer
 import {ProfileContainer} from './components/profile/ProfileContainer';
 import {UsersContainer} from './components/users/UsersContainer';
 import {SignInContainer} from "./components/login/SignInContainer";
+import { SignIn } from './components/login/SignIn';
 
 export const App: React.FC = () => {
     return (
@@ -17,7 +18,7 @@ export const App: React.FC = () => {
             <Route exact={true} path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
             <Route exact={true} path={'/dialogs'} render={() => <DialogsContainer/>}/>
             <Route exact={true} path={'/users'} render={() => <UsersContainer/>}/>
-            <Route exact={true} path={'/login'} render={() => <SignInContainer/>}/>
+            <Route exact={true} path={'/login'} render={() => <SignIn/>}/>
             <Footer/>
         </div>
     );

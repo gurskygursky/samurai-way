@@ -1,6 +1,5 @@
 export type SignInDataType = {
-    email: string;
-    password: string;
-    confirmPassword: string;
-    checkbox: boolean;
+    email: string | null;
+    password: string | null;
+    rememberMe: boolean;
 }

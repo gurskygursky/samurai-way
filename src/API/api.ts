@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {SignInDataType} from "./../components/login";
 
 export const instance = axios.create({
     withCredentials: true,
@@ -48,6 +49,12 @@ export const AuthAPI = {
     auth() {
         return (
             instance.get(`auth/me`)
+                .then(response => response.data)
+        )
+    },
+    signIn(email: string | null, password: string | null, rememberMe: boolean | null) {
+        return (
+            instance.post(`auth/login`, {email, password, rememberMe})
                 .then(response => response.data)
         )
     }
