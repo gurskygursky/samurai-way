@@ -3,6 +3,8 @@ import avatarImage from './../../assets/images/rocket-ship-png.png';
 import {ProfileResponseType} from "./../../redux/types";
 import {useDispatch} from "react-redux";
 import { setUserStatusThunk } from './../../redux/reducers/profile-reducer';
+import {signOutThunk} from "./../../redux/reducers/signInReducer";
+import {Redirect} from "react-router-dom";
 
 type PropsType = {
     profile: ProfileResponseType;
@@ -30,7 +32,9 @@ export const ProfileDescription: React.FC<PropsType> = ({profile, status, userId
         dispatch(setUserStatusThunk(value));
         setEdit(false);
     }
-
+    const signOut = () => {
+        dispatch(signOutThunk());
+    }
 
     return (
         <div> {
@@ -60,6 +64,10 @@ export const ProfileDescription: React.FC<PropsType> = ({profile, status, userId
                         />
                 }
             </div>
+            {
+                userId && <button onClick={signOut}>signOut</button>
+
+            }
         </div>
     );
 };

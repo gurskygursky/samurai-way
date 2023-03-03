@@ -19,6 +19,7 @@ type mapStateToPropsType = {
     isFetching: boolean;
     isAuth: boolean;
     status: string;
+    userId: number | null
 }
 
 const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
@@ -27,23 +28,31 @@ const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
         isFetching: state.usersReducer.isFetching,
         isAuth: state.authReducer.isAuth,
         status: state.ProfileReducer.status,
+        userId: state.signInReducer.userId,
     }
 }
 
 export class ProfileContainerWithRequest extends React.Component<ProfileContainerPropsType, any> {
-    refreshProfile() {
+    // refreshProfile() {
+    //
+    //     let userId = this.props.match.params.userId;
+    //     if (!userId) {
+    //         userId = String(this.props.userId);
+    //         // userId = String(18933);
+    //     }
+    //
+    //     this.props.getUserProfile(+userId);
+    //     this.props.getUserStatusThunk(+userId);
+    // }
 
+    componentDidMount() {
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = String(18933);
+            userId = String(this.props.userId);
         }
 
         this.props.getUserProfile(+userId);
         this.props.getUserStatusThunk(+userId);
-    }
-
-    componentDidMount() {
-        this.refreshProfile()
     }
 
     // componentDidUpdate(prevProps: any) {

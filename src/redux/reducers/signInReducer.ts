@@ -25,7 +25,7 @@ export const signInReducer = (state = initialState, action: ActionsType): Initia
 
 
 //actions
-export const signInAC = (signInData: SignInDataType, userId: number) => {
+export const signInAC = (signInData: SignInDataType, userId: number | null) => {
     return {
         type: 'SIGN_IN',
         payload: {
@@ -43,9 +43,6 @@ export const signInThunk = (signInData: SignInDataType) => {
                     dispatch(signInAC(signInData, data.data.userId));
                     dispatch(requestIsFetching(false));
                 }
-                if (data.resultCode === 1) {
-
-                }
             });
     }
 }
@@ -55,11 +52,8 @@ export const signOutThunk = () => {
         AuthAPI.signOut()
             .then((data: any) => {
                 if (data.resultCode === 0) {
-                    dispatch(signInAC(data, data.data.userId));
+                    dispatch(signInAC(data.data, null));
                     dispatch(requestIsFetching(false));
-                }
-                if (data.resultCode === 1) {
-
                 }
             });
     }

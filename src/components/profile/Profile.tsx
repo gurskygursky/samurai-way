@@ -3,6 +3,7 @@ import {ProfileDescription} from './ProfileDescription';
 import {PostsContainer} from 'src/components/profile/posts/PostsContainter';
 import {ProfileResponseType} from "./../../redux/types";
 import {Preloader} from "./../../components/preloader/Preloader";
+import {Redirect} from "react-router-dom";
 
 type PropsType = {
     profile: ProfileResponseType;
@@ -11,8 +12,12 @@ type PropsType = {
 }
 export const Profile: React.FC<PropsType> = ({profile, status, userId}) => {
 
-    if (!profile) {
-        return <Preloader/>
+    // if (!profile) {
+    //     return <Preloader/>
+    // }
+
+    if (!userId) {
+        return <Redirect to={'/login'}/>
     }
 
     return (
