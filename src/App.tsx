@@ -4,12 +4,10 @@ import {Header} from './components/header/Header';
 import {Navbar} from './components/navbar/Navbar';
 import {Footer} from './components/footer/Footer';
 import {Route} from 'react-router-dom';
-import {DialogsContainer} from 'src/components/messages/dialogs/DialogsContainer';
+import {DialogsContainer} from './components/messages/dialogs/DialogsContainer';
 import {ProfileContainer} from './components/profile/ProfileContainer';
 import {UsersContainer} from './components/users/UsersContainer';
 import {SignInContainer} from "./components/login/SignInContainer";
-// import {SignInContainer} from "./components/login/SignInContainer";
-// import { SignIn } from './components/login/SignIn';
 
 export const App: React.FC = () => {
     return (

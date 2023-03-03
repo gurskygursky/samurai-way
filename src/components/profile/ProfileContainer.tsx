@@ -4,14 +4,12 @@ import {RootStoreType} from './../../redux/store';
 import {
     getUserProfile,
     getUserStatusThunk,
-    setUserProfile, setUserStatusThunk,
+    setUserProfile,
 } from "./../../redux/reducers/profile-reducer";
 import {requestIsFetching} from "./../../redux/reducers/users-reducer";
-import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
 import React, {ComponentType} from 'react';
-import {Preloader} from "./../preloader/Preloader";
 import {Profile} from "./../profile/Profile";
-import {WithAuthRedirect} from "./../../hoc/WithAuthRedirect";
 import {compose} from "redux";
 
 type mapStateToPropsType = {
@@ -28,31 +26,25 @@ const mapStateToProps = (state: RootStoreType): mapStateToPropsType => {
         isFetching: state.usersReducer.isFetching,
         isAuth: state.authReducer.isAuth,
         status: state.ProfileReducer.status,
-        userId: state.signInReducer.userId,
+        userId: state.authReducer.authData.id,
     }
 }
 
 export class ProfileContainerWithRequest extends React.Component<ProfileContainerPropsType, any> {
-    // refreshProfile() {
-    //
-    //     let userId = this.props.match.params.userId;
-    //     if (!userId) {
-    //         userId = String(this.props.userId);
-    //         // userId = String(18933);
-    //     }
-    //
-    //     this.props.getUserProfile(+userId);
-    //     this.props.getUserStatusThunk(+userId);
-    // }
+    refreshProfile() {
 
-    componentDidMount() {
         let userId = this.props.match.params.userId;
         if (!userId) {
             userId = String(this.props.userId);
+            // userId = String(18933);
         }
 
         this.props.getUserProfile(+userId);
         this.props.getUserStatusThunk(+userId);
+    }
+
+    componentDidMount() {
+        this.refreshProfile();
     }
 
     // componentDidUpdate(prevProps: any) {
@@ -65,9 +57,12 @@ export class ProfileContainerWithRequest extends React.Component<ProfileContaine
         return (
             <>
                 {
-                    this.props.isFetching
-                        ? <Preloader/>
-                        : <Profile profile={this.props.profile} status={this.props.status} userId={this.props.profile.userId}/>
+                    this.props.isAuth
+                        ? <Profile profile={this.props.profile}
+                                   status={this.props.status}
+                                   isAuth={this.props.isAuth}
+                        />
+                        : <Redirect to={'/login'}/>
                 }
             </>
         )

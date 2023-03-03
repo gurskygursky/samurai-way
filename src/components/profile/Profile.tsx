@@ -2,27 +2,22 @@ import React from 'react';
 import {ProfileDescription} from './ProfileDescription';
 import {PostsContainer} from 'src/components/profile/posts/PostsContainter';
 import {ProfileResponseType} from "./../../redux/types";
-import {Preloader} from "./../../components/preloader/Preloader";
 import {Redirect} from "react-router-dom";
 
 type PropsType = {
     profile: ProfileResponseType;
     status: string;
-    userId: number;
+    isAuth: boolean;
 }
-export const Profile: React.FC<PropsType> = ({profile, status, userId}) => {
+export const Profile: React.FC<PropsType> = ({isAuth, profile, status}) => {
 
-    // if (!profile) {
-    //     return <Preloader/>
-    // }
-
-    if (!userId) {
+    if (!isAuth) {
         return <Redirect to={'/login'}/>
     }
 
     return (
         <div style={{backgroundColor: 'blueviolet'}} className={'content'}>
-            <ProfileDescription profile={profile} status={status} userId={userId}/>
+            <ProfileDescription profile={profile} status={status} isAuth={isAuth}/>
             <PostsContainer/>
         </div>
     );

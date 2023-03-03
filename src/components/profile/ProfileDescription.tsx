@@ -1,17 +1,16 @@
-import React, {ChangeEvent, KeyboardEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import avatarImage from './../../assets/images/rocket-ship-png.png';
 import {ProfileResponseType} from "./../../redux/types";
 import {useDispatch} from "react-redux";
 import { setUserStatusThunk } from './../../redux/reducers/profile-reducer';
 import {signOutThunk} from "./../../redux/reducers/signInReducer";
-import {Redirect} from "react-router-dom";
 
 type PropsType = {
     profile: ProfileResponseType;
-    userId: number,
+    isAuth: boolean;
     status: string;
 }
-export const ProfileDescription: React.FC<PropsType> = ({profile, status, userId}) => {
+export const ProfileDescription: React.FC<PropsType> = ({isAuth, profile, status}) => {
 
     const [value, setValue] = useState<string>(status);
     const [edit, setEdit] = useState<boolean>(false);
@@ -65,7 +64,7 @@ export const ProfileDescription: React.FC<PropsType> = ({profile, status, userId
                 }
             </div>
             {
-                userId && <button onClick={signOut}>signOut</button>
+                isAuth && <button onClick={signOut}>signOut</button>
 
             }
         </div>
