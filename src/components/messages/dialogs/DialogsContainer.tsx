@@ -20,4 +20,4 @@ type mapStateToPropsType = {
 export type DialogsContainerType = mapStateToPropsType;
 
 const ConnectComponent = connect(mapStateToProps);
-export const DialogsContainer = compose<ComponentType>(ConnectComponent, WithAuthRedirect)(Dialogs);
+export const DialogsContainer = compose<ComponentType>(ConnectComponent, /*WithAuthRedirect*/)(Dialogs);
