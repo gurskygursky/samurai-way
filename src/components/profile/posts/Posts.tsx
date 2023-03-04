@@ -1,18 +1,14 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {useState} from 'react';
 import {Post} from 'src/components/profile/posts/Post';
 import {PostType} from './../../../redux/types';
 import {PostsContainerType} from 'src/components/profile/posts/PostsContainter';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {useDispatch} from "react-redux";
 import {AddPostActionCreator} from "./../../../redux/reducers/profile-reducer";
-
-export type PostTextDataType = {
-    post: string;
-}
+import {PostReduxForm, PostTextDataType } from './PostForm';
 
 export const Posts = (props: PostsContainerType) => {
 
-    const [inputValue, setInputValue] = useState('');
+    // const [inputValue, setInputValue] = useState('');
 
     const posts = props.arrayPosts.map((post: PostType) => <Post key={post.id} postText={post.postText}
                                                                  likesCount={post.likesCount}/>);
@@ -46,23 +42,3 @@ export const Posts = (props: PostsContainerType) => {
         </div>
     );
 };
-
-const PostForm: React.FC<InjectedFormProps<PostTextDataType>> = ({handleSubmit}) => {
-    return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <Field
-                    name="post"
-                    component="input"
-                    type="input"
-                    placeholder="Enter your message..."
-                />
-            </div>
-            <button type={'submit'}>Send</button>
-        </form>
-    );
-}
-
-export const PostReduxForm = reduxForm<PostTextDataType>({
-    form: 'postForm' // a unique identifier for this form
-})(PostForm);

@@ -1,6 +1,6 @@
 import {PostType} from './../../../redux/types';
 import {AddPostActionCreator} from 'src/redux/reducers/profile-reducer';
-import {Posts, PostTextDataType} from 'src/components/profile/posts/Posts';
+import {Posts} from 'src/components/profile/posts/Posts';
 import {connect} from 'react-redux';
 import {RootStoreType} from 'src/redux/store';
 import {Dispatch} from 'redux';

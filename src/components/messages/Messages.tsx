@@ -1,14 +1,11 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React from 'react';
 import {Message} from './Message';
 import {MessageType} from 'src/redux/types';
 import {MessagesContainerType} from "./MessagesContainer";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {useDispatch} from "react-redux";
 import {SendMessageActionCreator} from "./../../redux/reducers/dialogs-reducer";
+import {MessageFormType, MessageReduxForm} from "./MessageForm";
 
-const initialData = {
-    message: '',
-}
 export const Messages = (props: MessagesContainerType) => {
 
     const messages = props.arrayMessages.map((message: MessageType) => <Message key={message.id}
@@ -51,25 +48,3 @@ export const Messages = (props: MessagesContainerType) => {
         </div>
     );
 };
-type MessageFormType = {
-    message: string;
-}
-const MessageForm: React.FC<InjectedFormProps<MessageFormType>> = ({handleSubmit}) => {
-    return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <Field
-                    name="message"
-                    component="input"
-                    type="input"
-                    placeholder="Enter your message..."
-                />
-            </div>
-            <button type={'submit'}>Send</button>
-        </form>
-    );
-}
-
- export const MessageReduxForm = reduxForm<MessageFormType>({
-    form: 'postForm' // a unique identifier for this form
-})(MessageForm);
