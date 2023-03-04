@@ -10,10 +10,10 @@ type PropsType = {
     isAuth: boolean;
 }
 export const Profile: React.FC<PropsType> = ({isAuth, profile, status}) => {
-
-    if (!isAuth) {
-        return <Redirect to={'/login'}/>
-    }
+    //
+    // if (!isAuth) {
+    //     return <Redirect to={'/login'}/>
+    // }
 
     return (
         <div style={{backgroundColor: 'blueviolet'}} className={'content'}>

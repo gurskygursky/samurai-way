@@ -56,14 +56,17 @@ export class ProfileContainerWithRequest extends React.Component<ProfileContaine
     render() {
         return (
             <>
-                {
-                    this.props.isAuth
-                        ? <Profile profile={this.props.profile}
-                                   status={this.props.status}
-                                   isAuth={this.props.isAuth}
-                        />
-                        : <Redirect to={'/login'}/>
-                }
+                <Profile profile={this.props.profile}
+                         status={this.props.status}
+                         isAuth={this.props.isAuth}/>
+                {/*{*/}
+                {/*    this.props.isAuth*/}
+                {/*        ? <Profile profile={this.props.profile}*/}
+                {/*                   status={this.props.status}*/}
+                {/*                   isAuth={this.props.isAuth}*/}
+                {/*        />*/}
+                {/*        : <Redirect to={'/login'}/>*/}
+                {/*}*/}
             </>
         )
     }

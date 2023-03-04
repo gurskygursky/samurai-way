@@ -29,7 +29,7 @@ export const ProfileReducer = (state = initialState, action: ProfileActionsType)
                 arrayPosts: [...state.arrayPosts, {
                     id: new Date().getTime(),
                     postText: action.payload.postText,
-                    likesCount: new Date().getDay()
+                    likesCount: Math.ceil(Math.random()*10)
                 }]
             }
         }
