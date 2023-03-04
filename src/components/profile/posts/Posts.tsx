@@ -5,6 +5,7 @@ import {PostsContainerType} from 'src/components/profile/posts/PostsContainter';
 import {useDispatch} from "react-redux";
 import {AddPostActionCreator} from "./../../../redux/reducers/profile-reducer";
 import {PostReduxForm, PostTextDataType } from './PostForm';
+import {reset} from "redux-form";
 
 export const Posts = (props: PostsContainerType) => {
 
@@ -25,6 +26,7 @@ export const Posts = (props: PostsContainerType) => {
 
     const onHandleSubmit = (postTextData: PostTextDataType) => {
         dispatch(AddPostActionCreator(postTextData.post));
+        dispatch(reset('postForm'));
     }
 
     return (

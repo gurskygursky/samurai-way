@@ -20,5 +20,5 @@ const MessageForm: React.FC<InjectedFormProps<MessageFormType>> = ({handleSubmit
     );
 }
 export const MessageReduxForm = reduxForm<MessageFormType>({
-    form: 'postForm',
+    form: 'messageForm',
 })(MessageForm);

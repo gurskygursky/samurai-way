@@ -5,6 +5,7 @@ import {MessagesContainerType} from "./MessagesContainer";
 import {useDispatch} from "react-redux";
 import {SendMessageActionCreator} from "./../../redux/reducers/dialogs-reducer";
 import {MessageFormType, MessageReduxForm} from "./MessageForm";
+import {reset} from "redux-form";
 
 export const Messages = (props: MessagesContainerType) => {
 
@@ -34,6 +35,7 @@ export const Messages = (props: MessagesContainerType) => {
 
     const handleSubmit = (messageData: MessageFormType) => {
         dispatch(SendMessageActionCreator(messageData.message));
+        dispatch(reset('messageForm'));
     }
 
     return (
