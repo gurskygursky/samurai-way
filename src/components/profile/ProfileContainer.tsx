@@ -38,7 +38,6 @@ export class ProfileContainerWithRequest extends React.Component<ProfileContaine
             userId = String(this.props.userId);
             // userId = String(18933);
         }
-
         this.props.getUserProfile(+userId);
         this.props.getUserStatusThunk(+userId);
     }
@@ -56,17 +55,11 @@ export class ProfileContainerWithRequest extends React.Component<ProfileContaine
     render() {
         return (
             <>
-                <Profile profile={this.props.profile}
-                         status={this.props.status}
-                         isAuth={this.props.isAuth}/>
-                {/*{*/}
-                {/*    this.props.isAuth*/}
-                {/*        ? <Profile profile={this.props.profile}*/}
-                {/*                   status={this.props.status}*/}
-                {/*                   isAuth={this.props.isAuth}*/}
-                {/*        />*/}
-                {/*        : <Redirect to={'/login'}/>*/}
-                {/*}*/}
+                {
+                    this.props.isAuth
+                        ? <Profile {...this.props}/>
+                        : <Redirect to={'/login'}/>
+                }
             </>
         )
     }

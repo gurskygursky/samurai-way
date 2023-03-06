@@ -1,16 +1,18 @@
 import React, {ComponentType} from 'react';
 import {NavLink, Redirect} from "react-router-dom";
-import {AuthUserDataResponseType} from "./../../redux/types";
+import {AuthUserDataResponseType, ProfileResponseType} from "./../../redux/types";
 import {Field, InjectedFormProps, reduxForm, reset} from "redux-form";
 import {compose} from "redux";
 import {SignInDataType} from "./index";
 import {useDispatch} from "react-redux";
 import {signInThunk} from "./../../redux/reducers/signInReducer";
 import { ProfileContainer } from './../../components/profile/ProfileContainer';
+import { Profile } from './../../components/profile/Profile';
 
 type PropsType = {
-    userId: number | null
-    // isAuth: boolean;
+    isAuth: boolean;
+    profile: ProfileResponseType;
+    status: string;
     // authData: AuthUserDataResponseType;
     // handleSubmit: (singInData: SignInDataType) => void;
     // reset: () => void;
@@ -30,21 +32,14 @@ type PropsType = {
 //     );
 // };
 
-export const SignIn: React.FC<PropsType> = ({userId, ...props}) => {
-
+export const SignIn: React.FC<PropsType> = ({isAuth, ...props}) => {
     const dispatch = useDispatch();
     const handleSubmit = (signInData: SignInDataType) => {
         dispatch(signInThunk(signInData))
     }
-
     return (
         <div style={{backgroundColor: 'lightpink', color: 'whitesmoke'}}>
-            {
-                !userId ?
-
             <SignInReduxForm onSubmit={handleSubmit}/>
-                    : <Redirect to={'/profile'}/>
-            }
         </div>
     );
 };
