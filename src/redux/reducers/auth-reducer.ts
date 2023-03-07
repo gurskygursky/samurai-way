@@ -1,10 +1,13 @@
 import {AuthDataResponseType, AuthUserDataResponseType} from 'src/redux/types';
 import {Dispatch} from "redux";
 import {AuthAPI} from "./../../API/api";
+import {SignInDataType} from "./../../components/login";
+import {ThunkAction} from 'redux-thunk';
+import {RootStoreType} from "./../../redux/store";
 
 enum ACTIONS {
     SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA',
-    REQUEST_IS_AUTH = 'REQUEST_IS_AUTH',
+    SET_ERROR_MESSAGE = 'SET_ERROR_MESSAGE',
 }
 
 type InitialStateType = {
@@ -26,18 +29,19 @@ let initialState: InitialStateType = {
     isAuth: false,
 }
 
-export const authReducer = (state = initialState, action: ActionsType) => {
+export const authReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case ACTIONS.SET_AUTH_USER_DATA: {
             return {
                 ...state,
                 authData: action.payload.authData,
+                isAuth: action.payload.isAuth,
             }
         }
-        case ACTIONS.REQUEST_IS_AUTH: {
+        case ACTIONS.SET_ERROR_MESSAGE: {
             return {
                 ...state,
-                 isAuth: action.payload.isAuth,
+                messages: [action.payload.errorMessage],
             }
         }
         default:
@@ -46,35 +50,48 @@ export const authReducer = (state = initialState, action: ActionsType) => {
 }
 
 // actions
-export const setAuthUserData = (authData: AuthUserDataResponseType) => {
+export const setAuthUserData = (authData: AuthUserDataResponseType, isAuth: boolean) => {
     return {
         type: ACTIONS.SET_AUTH_USER_DATA,
-        payload: {authData},
+        payload: {authData, isAuth},
     } as const
 }
-export const requestIsAuth = (isAuth: boolean) => {
+export const setErrorMessage = (errorMessage: string) => {
     return {
-        type: ACTIONS.REQUEST_IS_AUTH,
-        payload: {isAuth},
+        type: ACTIONS.SET_ERROR_MESSAGE,
+        payload: {errorMessage},
     } as const
 }
 
+//thunk
 export const isAuthMe = () => {
     return (dispatch: Dispatch) => {
         AuthAPI.auth()
             .then((data: AuthDataResponseType) => {
                 if (data.resultCode === 0) {
-                    dispatch(requestIsAuth(true));
-                    dispatch(setAuthUserData(data.data));
-                }
-                if (data.resultCode === 1) {
-                    dispatch(requestIsAuth(false));
+                    console.log(data.data)
+                    dispatch(setAuthUserData(data.data, true));
                 }
             })
     }
 }
+export const signInThunk = (signInData: SignInDataType): ThunkAction<void, RootStoreType, unknown, ActionsType> =>
+    async (dispatch) => {
+        const response = await AuthAPI.signIn(signInData.email, signInData.password, signInData.rememberMe)
+        if (response.data.resultCode === 0) {
+            await dispatch(isAuthMe());
+        }
+    }
+
+export const signOutThunk = () => async (dispatch: Dispatch) => {
+    const response = await AuthAPI.signOut()
+    if (response.data.resultCode === 0) {
+        console.log(response.data.data);
+        dispatch(setAuthUserData({id: null, login: null, email: null}, false))
+    }
+}
 
 // actions types
-type SetAuthUserDataType = ReturnType<typeof setAuthUserData>;
-type RequestIsAuthType = ReturnType<typeof requestIsAuth>;
-export type ActionsType = SetAuthUserDataType | RequestIsAuthType;
+type SetAuthUserActionType = ReturnType<typeof setAuthUserData>;
+type setErrorMessageActionType = ReturnType<typeof setErrorMessage>;
+export type ActionsType = SetAuthUserActionType | setErrorMessageActionType;

@@ -3,7 +3,7 @@ import avatarImage from './../../assets/images/rocket-ship-png.png';
 import {ProfileResponseType} from "./../../redux/types";
 import {useDispatch} from "react-redux";
 import { setUserStatusThunk } from './../../redux/reducers/profile-reducer';
-import {signOutThunk} from "./../../redux/reducers/signInReducer";
+import {signOutThunk} from "./../../redux/reducers/auth-reducer";
 
 type PropsType = {
     profile: ProfileResponseType;

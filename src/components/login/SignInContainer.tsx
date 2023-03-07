@@ -1,6 +1,6 @@
 import React, {ComponentType} from "react";
-import {connect, ConnectedProps, useDispatch} from "react-redux";
-import {requestIsAuth, setAuthUserData, isAuthMe} from "./../../redux/reducers/auth-reducer";
+import {connect, ConnectedProps} from "react-redux";
+import {setAuthUserData, isAuthMe} from "./../../redux/reducers/auth-reducer";
 import {RootStoreType} from "./../../redux/store";
 import {AuthUserDataResponseType, ProfileResponseType} from "./../../redux/types";
 import {compose} from "redux";
@@ -42,7 +42,7 @@ export class SignInContainerWithRequest extends React.Component<SignInContainerP
 }
 
 export const ConnectComponent = connect(mapStateToProps, {
-    setAuthUserData, requestIsAuth, isAuthMe,
+    setAuthUserData, isAuthMe,
 });
 
 export type SignInContainerPropsType = ConnectedProps<typeof ConnectComponent>;

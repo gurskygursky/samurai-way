@@ -3,7 +3,7 @@ import {connect, ConnectedProps} from 'react-redux';
 import {RootStoreType} from 'src/redux/store';
 import {UserType} from './../../../redux/types';
 import {compose} from "redux";
-import { WithAuthRedirect } from './../../../hoc/WithAuthRedirect';
+// import { WithAuthRedirect } from './../../../hoc/WithAuthRedirect';
 import {ComponentType} from "react";
 
 

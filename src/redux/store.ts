@@ -5,14 +5,12 @@ import {usersReducer} from './reducers/users-reducer';
 import {authReducer} from "./reducers/auth-reducer";
 import thunk from "redux-thunk";
 import { reducer as reduxFormReducer } from 'redux-form';
-import { signInReducer } from './reducers/signInReducer';
 
 const rootReducer = combineReducers({
     DialogsReducer,
     ProfileReducer,
     usersReducer,
     authReducer,
-    signInReducer,
     form: reduxFormReducer, // mounted under "form"
 });
 
