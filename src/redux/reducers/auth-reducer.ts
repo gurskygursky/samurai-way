@@ -64,16 +64,16 @@ export const setErrorMessage = (errorMessage: string) => {
 }
 
 //thunk
-export const isAuthMe = () => {
-    return (dispatch: Dispatch) => {
-        AuthAPI.auth()
+export const isAuthMe = (): ThunkAction<Promise<void>, RootStoreType, unknown, ActionsType> =>
+    (dispatch) => {
+        return AuthAPI.auth()
             .then((data: AuthDataResponseType) => {
                 if (data.resultCode === 0) {
                     console.log(data.data)
                     dispatch(setAuthUserData(data.data, true));
                 }
             })
-    }
+
 }
 export const signInThunk = (signInData: SignInDataType): ThunkAction<void, RootStoreType, unknown, ActionsType> =>
     async (dispatch) => {
